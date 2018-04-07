@@ -56,13 +56,21 @@ let blocks = {
     },
 
 
-    start_ball_black: {
+    destroy_ball_black: {
         pivot: {
             x: 30,
             y: 30
         },
         frameRate: 0.28,
         frames: ["sprites/balls/black"]
+    },
+    start_ball_black: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/black4","sprites/balls/destroy/black3","sprites/balls/destroy/black2","sprites/balls/destroy/black1"]
     },
     ball_black: {
         pivot: {
@@ -136,6 +144,63 @@ let blocks = {
         frameRate: 0.28,
         frames: ["sprites/balls/yellow1", "sprites/balls/yellow2", "sprites/balls/yellow3", "sprites/balls/yellow4", "sprites/balls/yellow5", "sprites/balls/yellow6"],
     },
+    destroy_ball_blue: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/blue1", "sprites/balls/destroy/blue2", "sprites/balls/destroy/blue3", "sprites/balls/destroy/blue4",]
+    },
+    destroy_ball_green: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/green1", "sprites/balls/destroy/green2", "sprites/balls/destroy/green3", "sprites/balls/destroy/green4",]
+    },
+    destroy_ball_lightblue: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/lightblue1", "sprites/balls/destroy/lightblue2", "sprites/balls/destroy/lightblue3", "sprites/balls/destroy/lightblue4",]
+    },
+    destroy_ball_red: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/red1", "sprites/balls/destroy/red2", "sprites/balls/destroy/red3", "sprites/balls/destroy/red4",]
+    },
+    destroy_ball_rose: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/rose1", "sprites/balls/destroy/rose2", "sprites/balls/destroy/rose3", "sprites/balls/destroy/rose4",]
+    },
+    destroy_ball_yellow: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/yellow1", "sprites/balls/destroy/yellow2", "sprites/balls/destroy/yellow3", "sprites/balls/destroy/yellow4",]
+    },
+    destroy_ball_rainbow: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/destroy/color1", "sprites/balls/destroy/color2", "sprites/balls/destroy/color3", "sprites/balls/destroy/color4",]
+    },
+
 };
 
 

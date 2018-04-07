@@ -91,7 +91,6 @@ export default class Ball {
 
     stopDestroyAnimation() {
         this.animationDestroy.visible = false;
-        this.ball.visible = true;
         this.animationDestroy.stop();
     }
 
@@ -104,7 +103,6 @@ export default class Ball {
         setTimeout(() => {
             let index = this.container.parent.getChildIndex(this.container);
             this.container.parent.removeChildAt(index);
-            this.stopDestroyAnimation();
-        }, 250);
+        }, 50);
     }
 }
