@@ -1,5 +1,5 @@
 const {Cell} = require('./cell.js');
-const {Ball,COLORS} = require('./ball.js');
+const {Ball, COLORS} = require('./ball.js');
 
 class Field {
     constructor(width = 9, height = 9) {
@@ -39,7 +39,7 @@ class Field {
             }
         }
         let stack = [from];
-        pathLength[from.x][from.y]=0;
+        pathLength[from.x][from.y] = 0;
         while (stack.length > 0 && pathLength[to.x][to.y] === -1) {
             let newStack = [];
             for (let i = 0; i < stack.length; i++) {
@@ -77,7 +77,7 @@ class Field {
                 } else if (pathLength[current.x][current.y] - 1 === pathLength[current.x][current.y - 1]) {
                     current = this.cells[current.x][current.y - 1];
                 }
-                console.log('step',current.toPlain());
+                console.log('step', current.toPlain());
                 path.unshift(current);
             }
         }
@@ -98,11 +98,11 @@ class Field {
                 }
                 if (this.cells[x][y].ball) {
                     findCells.push(this.cells[x][y]);
-                }else {
+                } else {
                     findCells = []
                 }
             }
-           this.checkLines(findCells, useCells, useColors);
+            this.checkLines(findCells, useCells, useColors);
         }
 
 
@@ -114,11 +114,11 @@ class Field {
                 }
                 if (this.cells[x][y].ball) {
                     findCells.push(this.cells[x][y]);
-                }else {
+                } else {
                     findCells = []
                 }
             }
-           this.checkLines(findCells, useCells, useColors);
+            this.checkLines(findCells, useCells, useColors);
         }
 
 
@@ -126,17 +126,18 @@ class Field {
             let findCells = [];
             let y = 0;
             do {
+                console.log(x+y,y);
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x + y, y, useCells, useColors);
                 }
-                if (this.cells[x+y][y].ball) {
+                if (this.cells[x + y][y].ball) {
                     findCells.push(this.cells[x + y][y]);
-                }else {
+                } else {
                     findCells = []
                 }
                 y++;
             } while (x + y < this.width);
-           this.checkLines(findCells, useCells, useColors);
+            this.checkLines(findCells, useCells, useColors);
         }
         for (let y = 1; y < this.width; y++) {
             let findCells = [];
@@ -145,14 +146,14 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x, y + x, useCells, useColors);
                 }
-                if (this.cells[x][y+x].ball) {
+                if (this.cells[x][y + x].ball) {
                     findCells.push(this.cells[x][y + x]);
-                }else {
+                } else {
                     findCells = []
                 }
                 x++;
-            } while (x + y < 5);
-           this.checkLines(findCells, useCells, useColors);
+            } while (x + y < this.width);
+            this.checkLines(findCells, useCells, useColors);
         }
 
 
@@ -164,14 +165,14 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x - i, y + i, useCells, useColors);
                 }
-                if (this.cells[x-i][y+i].ball) {
+                if (this.cells[x - i][y + i].ball) {
                     findCells.push(this.cells[x - i][y + i]);
-                }else {
+                } else {
                     findCells = []
                 }
                 i++;
             } while (y + i < this.height);
-           this.checkLines(findCells, useCells, useColors);
+            this.checkLines(findCells, useCells, useColors);
         }
         for (let x = this.width - 1; x >= 0; x--) {
             let findCells = [];
@@ -181,38 +182,38 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x - i, y + i, useCells, useColors);
                 }
-                if (this.cells[x-i][y+i].ball) {
+                if (this.cells[x - i][y + i].ball) {
                     findCells.push(this.cells[x - i][y + i]);
-                }else {
+                } else {
                     findCells = []
                 }
                 i++;
             } while (x - i > 0);
-           this.checkLines(findCells, useCells, useColors);
+            this.checkLines(findCells, useCells, useColors);
         }
 
-        let points =  Field.countPoints(useCells.length,useColors.length);
+        let points = Field.countPoints(useCells.length, useColors.length);
 
         return {
-            points : points,
+            points: points,
             cells: useCells,
         }
     }
 
-    static countPoints(countCells, countColor){
+    static countPoints(countCells, countColor) {
         let points = 0;
-        if (countCells>=5){
-            let an = 2+(countCells-5-1);
-            points = 5+((countCells-2))/2*(countCells-5)
+        if (countCells >= 5) {
+            let an = 2 + (countCells - 5 - 1);
+            points = 5 + ((countCells - 2)) / 2 * (countCells - 5)
         }
-        return points*countColor-1;
+        return points * countColor - 1;
     }
 
-     checkCurrentLine(findCells, x, y, useCells, useColors) {
+    checkCurrentLine(findCells, x, y, useCells, useColors) {
         if (this.cells[x][y].ball
             && this.cells[x][y].ball.isComporable(findCells[findCells.length - 1].ball.color)) {
         } else {
-           this.checkLines(findCells, useCells, useColors);
+            this.checkLines(findCells, useCells, useColors);
         }
     }
 

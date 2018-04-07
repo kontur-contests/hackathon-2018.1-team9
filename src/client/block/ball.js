@@ -58,4 +58,10 @@ export default class Ball{
     getContainer() {
         return this.container;
     }
+
+    remove (){
+        let index = this.container.parent.getChildIndex(this.container);
+        console.log(index);
+        this.container.parent.removeChildAt(index);
+    }
 }

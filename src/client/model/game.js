@@ -65,7 +65,13 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
 
                 break;
             case "delete-ball":
+                console.log('delete-ball');
+                console.log('myField',change.onMyField);
                 if (change.onMyField) {
+                    console.log(change.cells);
+                    for (let i = 0; i < change.cells.length; i++) {
+                        field.cells[change.cells[i].x][change.cells[i].y] = null;
+                    }
                     this.emit('delete-my-ball', {cells: change.cells});
                 }
                 break;

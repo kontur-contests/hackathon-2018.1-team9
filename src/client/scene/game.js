@@ -43,7 +43,8 @@ export default class GameScene {
             this.animationTweens.push(tween);
         });
 
-        game.on('delete-my-ball', (cells) => {
+        game.on('delete-my-ball', ({cells}) => {
+            console.log('scene game',cells);
             for (let i = 0; i < cells.length; i++) {
                 this.mainField.deleteBall(cells[i].x, cells[i].y);
             }

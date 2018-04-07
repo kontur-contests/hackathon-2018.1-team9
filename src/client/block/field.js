@@ -90,6 +90,8 @@ export default class Field extends PIXI.utils.EventEmitter {
     }
 
     deleteBall(x,y){
+        console.log('block field',x,y);
+        this.balls[x][y].remove();
         this.balls[x][y] = null;
     }
 
