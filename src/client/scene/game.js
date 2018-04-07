@@ -33,17 +33,16 @@ export default class GameScene {
         });
 
         game.on('move-my-ball', ({from, to}) => {
-            this.mainField.moveBall(from, to);
+            const tween = this.mainField.moveBall(from ,to);
+            tween.startTime = this.lastTickTime;
+
+            this.animationTweens.push(tween);
         });
 
         game.on('delete-my-ball', (cells) => {
             for (let i = 0; i < cells.length; i++) {
                 this.mainField.deleteBall(cells[i].x, cells[i].y);
             }
-            const tween = this.mainField.moveBall(from ,to);
-            tween.startTime = this.lastTickTime;
-
-            this.animationTweens.push(tween);
         });
 
         game.on('stop-my-ball', ({cell: {x, y}}) => {
