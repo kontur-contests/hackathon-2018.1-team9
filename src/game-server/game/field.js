@@ -26,9 +26,9 @@ class Field {
         for (let x = -1; x <= this.width; x++) {
             maps[x] = [];
             pathLength[x] = [];
-            for (let y = -1; y <= this.width; y++) {
+            for (let y = -1; y <= this.height; y++) {
                 pathLength[x][y] = 0;
-                if (x === -1 || y === -1 || x === this.width || y === this.width) {
+                if (x === -1 || y === -1 || x === this.width || y === this.height) {
                     maps[x][y] = -1;
                 } else if (this.cells[x][y].ball === null) {
                     maps[x][y] = 0;
@@ -84,8 +84,126 @@ class Field {
     }
 
     getLines() {
+        let countBall = 0;
+        let countLine = 0;
+        let countColor = 0;
+        let useCells = [];
+        let useColors = [Ball.COLOR.RAINBOW];
+
+        for (let x = 0; x < this.width; x++) {
+            let findCells = [];
+            for (let y = 0; y < this.height; y++) {
+                if (findCells.length > 0) {
+                    this.checkCurrentLine(findCells, x, y, useCells, useColors);
+                }
+                if (this.cells[x][y].ball) {
+                    findCells.push(this.cells[x][y]);
+                }
+            }
+            this.checkLines(findCells, useCells, useColors);
+        }
+
+
+        for (let y = 0; y < this.width; x++) {
+            let findCells = [];
+            for (let x = 0; x < this.height; x++) {
+                if (findCells.length > 0) {
+                    this.checkCurrentLine(findCells, x, y, useCells, useColors);
+                }
+                if (this.cells[x][y].ball) {
+                    findCells.push(this.cells[x][y]);
+                }
+            }
+            this.checkLines(findCells, useCells, useColors);
+        }
+
+
+        for (let x = this.width - 1; x >= 0; x--) {
+            let findCells = [];
+            let y = 0;
+            do {
+                if (findCells.length > 0) {
+                    this.checkCurrentLine(findCells, x + y, y);
+                }
+                if (this.cells[x][y].ball) {
+                    findCells.push(this.cells[x + y][y]);
+                }
+                y++;
+            } while (x + y < this.width);
+            this.checkLines(findCells, useCells, useColors);
+        }
+        for (let y = 1; y < this.width; y++) {
+            let findCells = [];
+            let x = 0;
+            do {
+                if (findCells.length > 0) {
+                    this.checkCurrentLine(findCells, x, y + x);
+                }
+                if (this.cells[x][y].ball) {
+                    findCells.push(this.cells[x][y + x]);
+                }
+                x++;
+            } while (x + y < 5);
+            this.checkLines(findCells, useCells, useColors);
+        }
+
+
+        for (let y = this.height - 1; y >= 0; y--) {
+            let findCells = [];
+            let x = this.width - 1;
+            let i = 0;
+            do {
+                if (findCells.length > 0) {
+                    this.checkCurrentLine(findCells, x - i, y + i);
+                }
+                if (this.cells[x][y].ball) {
+                    findCells.push(this.cells[x - i][y + i]);
+                }
+                i++;
+            } while (y + i < this.height);
+            this.checkLines(findCells, useCells, useColors);
+        }
+        for (let x = this.width - 1; x >= 0; x--) {
+            let findCells = [];
+            let y = 0;
+            let i = 0;
+            do {
+                if (findCells.length > 0) {
+                    this.checkCurrentLine(findCells, x - i, y + i);
+                }
+                if (this.cells[x][y].ball) {
+                    findCells.push(this.cells[x - i][y + i]);
+                }
+                i++;
+            } while (x - i > 0);
+            this.checkLines(findCells, useCells, useColors);
+        }
 
     }
+
+
+    static checkCurrentLine(findCells, x, y, useCells, useColors) {
+        if (this.cells[x][y].ball
+            && this.cells[x][y].ball.isComporable(findCells[findCells.length - 1].ball.color)) {
+        } else {
+            this.checkLines(findCells, useCells, useColors);
+        }
+    }
+
+    static checkLines(findCells, useCells, useColors) {
+        if (findCells.length > 4) {
+            for (let i = 0; i < findCells.length; i++) {
+                if (!useCells.includes(findCells[i])) {
+                    useCells.push(findCells[i]);
+                }
+                if (!useColors.includes(findCells[i].ball.color)) {
+                    useColors.push(findCells[i].ball.color);
+                }
+            }
+        }
+
+    }
+
 
     /**
      * Возвращает координаты клетки куда помещен "шар" из сброса
