@@ -238,12 +238,14 @@ class Field {
                     normalNumber -= 1;
                     if (normalNumber === 0) {
                         this.cells[x][y].ball = ball;
+                        this.freeCells -= 1;
+                        return {x, y};
                     }
                 }
             }
         }
 
-        return {x, y};
+
     }
 }
 

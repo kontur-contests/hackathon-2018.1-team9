@@ -51,9 +51,9 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
     }
 
     processChange(change) {
+        const field = change.onMyField ? this.myFieldModel : null;
         switch (change.action) {
             case "move-ball":
-                const field = change.onMyField ? this.myFieldModel : null;
                 const {x, y} = change.from;
                 const {x: x1, y: y1} = change.to;
                 const ball = field.cells[x][y];
@@ -68,6 +68,17 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 if (change.onMyField) {
                     this.emit('delete-my-ball', {cells: change.cells});
                 }
+                break;
+
+            case "spawn-balls":
+                change.drops.forEach((drop) => {
+                    const {x, y} = drop.position;
+                    field.cells[x][y] = {color: drop.color};
+
+                    if (change.onMyField) {
+                        this.emit('spawn-my-ball', {x, y, color: drop.color});
+                    }
+                });
                 break;
 
             case "stop-ball-animation":

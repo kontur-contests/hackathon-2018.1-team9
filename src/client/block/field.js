@@ -73,6 +73,22 @@ export default class Field extends PIXI.utils.EventEmitter {
         });
     }
 
+    createBall(x, y, color) {
+        console.log(x, y, color);
+        const ball = new Ball(color);
+        const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
+
+        if (!this.balls[x]) {
+            this.balls[x] = [];
+        }
+        this.balls[x][y] = ball;
+
+        this.container.addChild(ball.getContainer());
+
+        ball.getContainer().x = screenX;
+        ball.getContainer().y = screenY;
+    }
+
     deleteBall(x,y){
         this.balls[x][y] = null;
     }

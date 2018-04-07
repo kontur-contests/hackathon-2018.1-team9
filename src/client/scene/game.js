@@ -49,6 +49,10 @@ export default class GameScene {
         game.on('stop-my-ball', ({cell: {x, y}}) => {
             this.mainField.balls[x][y].stopSelectedAnimation();
         });
+
+        game.on('spawn-my-ball', ({x, y, color}) => {
+            this.mainField.createBall(x, y, color);
+        });
     }
 
 
