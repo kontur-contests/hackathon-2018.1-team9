@@ -226,7 +226,13 @@ class Game {
             const drop = [];
 
             for (let i = 0; i < this.dropSize; i++) {
-                drop.push(DROP_COLORS[Math.floor(Math.random() * DROP_COLORS.length)]);
+                if (Math.random() <= 0.02) {
+                    drop.push(COLORS.BLACK);
+                } else if (Math.random() <= 0.07) {
+                    drop.push(COLORS.RAINBOW);
+                } else {
+                    drop.push(DROP_COLORS[Math.floor(Math.random() * DROP_COLORS.length)]);
+                }
             }
 
             this.dropColors.push(drop);
