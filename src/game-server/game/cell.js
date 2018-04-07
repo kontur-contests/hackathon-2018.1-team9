@@ -7,3 +7,5 @@ class Cell {
         this.ball = null;
     }
 }
+
+module.exports = {Cell};
