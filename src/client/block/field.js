@@ -8,7 +8,7 @@ export default class Field extends PIXI.utils.EventEmitter {
 
         this.container = new PIXI.Container();
 
-        const backgroundSprite = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/field/field-background.jpeg'));
+        const backgroundSprite = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/field/field-background'));
 
         this.container.addChild(backgroundSprite);
 
@@ -98,16 +98,27 @@ export default class Field extends PIXI.utils.EventEmitter {
     }
 
     static getCell(x, y) {
+        let cellX = Math.floor((x - 29) / sizeCell);
+        let cellY = Math.floor((y - 21) / sizeCell);
+
+        if (cellX < 0) {
+            cellX = 0;
+        }
+
+        if (cellY < 0) {
+            cellY = 0;
+        }
+
         return {
-            x: Math.floor(x / sizeCell),
-            y: Math.floor(y / sizeCell),
+            x: cellX,
+            y: cellY,
         }
     }
 
     static getCellPixel(x, y) {
         return {
-            x: Math.ceil(x * sizeCell + sizeCell / 2),
-            y: Math.ceil(y * sizeCell + sizeCell / 2),
+            x: Math.ceil(x * sizeCell + sizeCell / 2) + 29,
+            y: Math.ceil(y * sizeCell + sizeCell / 2) + 21,
         }
     }
 }

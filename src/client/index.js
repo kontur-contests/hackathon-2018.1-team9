@@ -1,7 +1,7 @@
 import LoaderScene from './scene/loader.js';
 
-const width = 1250;
-const height = 600;
+const width = 1200;
+const height = 800;
 let app = new PIXI.Application({width: width, height: height, backgroundColor: 0xaaaadd});
 
 
