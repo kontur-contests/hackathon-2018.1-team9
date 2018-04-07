@@ -21,6 +21,9 @@ export default class Field extends PIXI.utils.EventEmitter {
 
             this.emit('click', Field.getCell(coordinate.x,coordinate.y));
         });
+
+        this.balls = {};
+
     }
 
     renderField(fieldModel) {
@@ -31,9 +34,13 @@ export default class Field extends PIXI.utils.EventEmitter {
         fieldModel.cells.forEach((row, x) => {
            row.forEach((cell, y) => {
                if (cell) {
-                   console.log(cell);
                    const ball = new Ball(cell.color);
                    const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
+
+                   if (!this.balls[x]) {
+                       this.balls[x] = {};
+                   }
+                   this.balls[x][y] = ball;
 
                    this.container.addChild(ball.getContainer());
 
@@ -50,8 +57,8 @@ export default class Field extends PIXI.utils.EventEmitter {
 
     static getCell(x, y) {
         return {
-            x: Math.ceil(x / sizeCell),
-            y: Math.ceil(y / sizeCell),
+            x: Math.floor(x / sizeCell),
+            y: Math.floor(y / sizeCell),
         }
     }
 

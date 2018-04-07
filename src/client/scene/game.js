@@ -14,8 +14,18 @@ export default class GameScene {
         this.stage.addChild(this.mainField.getContainer());
 
         game.on('full-update', (data) => this.fullUpdate(data));
+
         this.mainField.on('click', (cords) => {
             game.clickMyField(cords.x, cords.y);
+        });
+
+        game.on('select-cell', (cords) => {
+            console.log("Select cell", cords);
+            this.mainField.balls[cords.x][cords.y].startSelectedAnimation();
+        });
+
+        game.on('deselect-cell', (cords) => {
+            this.mainField.balls[cords.x][cords.y].stopSelectedAnimation();
         });
     }
 

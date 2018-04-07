@@ -1,5 +1,6 @@
 import GameScene from './game.js';
 import GameModel from '../model/game.js';
+import {initClips} from '../movieClip/animation.js';
 
 export default class LoaderScene {
     constructor(app) {
@@ -19,6 +20,7 @@ export default class LoaderScene {
         });
 
         loader.onComplete.add(() => {
+            initClips();
             this.done = true;
         });
 
