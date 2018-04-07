@@ -9,7 +9,7 @@ export default class GameScene {
         this.stage = new PIXI.Container();
 
         this.mainField = new Field(30, 180, 1);
-        this.secondField = new Field(800, 180, 1);
+        this.secondField = new Field(630, 180, 0.66);
 
         this.lastTickTime = null;
 

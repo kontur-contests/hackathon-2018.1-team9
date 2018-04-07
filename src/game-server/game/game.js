@@ -88,6 +88,7 @@ class Game {
         this.tickNumber += 1;
 
         this.processPlayerActions(this.players[0]);
+        this.processPlayerActions(this.players[1]);
         this.processCommonAction();
 
         const changes1 = JSON.stringify({tick: this.tickNumber, changes: this.playersTickChanges[0]});
