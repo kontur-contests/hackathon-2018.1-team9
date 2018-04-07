@@ -9,6 +9,7 @@ export default class GameScene {
         this.stage = new PIXI.Container();
 
         this.mainField = new Field(30, 180, 1);
+        this.secondField = new Field(630, 180, 0.66);
 
         this.lastTickTime = null;
 
@@ -20,6 +21,7 @@ export default class GameScene {
         this.stage.addChild(background);
 
         this.stage.addChild(this.mainField.getContainer());
+        this.stage.addChild(this.secondField.getContainer());
 
         game.on('full-update', (data) => this.fullUpdate(data));
 
@@ -57,6 +59,28 @@ export default class GameScene {
         game.on('spawn-my-ball', ({x, y, color}) => {
             this.mainField.createBall(x, y, color);
         });
+
+
+        game.on('move-enemy-ball', ({from, to}) => {
+            const tween = this.secondField.moveBall(from ,to);
+            tween.startTime = this.lastTickTime;
+
+            this.animationTweens.push(tween);
+        });
+
+        game.on('delete-enemy-ball', (cells) => {
+            for (let i = 0; i < cells.length; i++) {
+                this.secondField.deleteBall(cells[i].x, cells[i].y);
+            }
+        });
+
+        game.on('stop-enemy-ball', ({cell: {x, y}}) => {
+            this.secondField.balls[x][y].stopSelectedAnimation();
+        });
+
+        game.on('spawn-enemy-ball', ({x, y, color}) => {
+            this.secondField.createBall(x, y, color);
+        });
     }
 
 
@@ -73,6 +97,17 @@ export default class GameScene {
 
         this.game.setMyField(fieldModel);
         this.mainField.renderField(fieldModel);
+
+        const enemyFieldModel = new FieldModel(gameData.otherFieldData.width, gameData.otherFieldData.height);
+
+        gameData.otherFieldData.field.forEach((row, x) => {
+            row.forEach((cell, y) => {
+                enemyFieldModel.cells[x][y] = cell;
+            });
+        });
+
+        this.game.setEnemyField(enemyFieldModel);
+        this.secondField.renderField(enemyFieldModel);
 
     }
 

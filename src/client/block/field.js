@@ -15,6 +15,9 @@ export default class Field extends PIXI.utils.EventEmitter {
         this.container.x = x;
         this.container.y = y;
 
+        this.container.scale.x = scale;
+        this.container.scale.y = scale;
+
         this.container.interactive = true;
         this.container.on('pointerdown', (evt)=>{
             const coordinate = this.container.toLocal(evt.data.global);

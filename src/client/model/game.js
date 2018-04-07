@@ -51,7 +51,7 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
     }
 
     processChange(change) {
-        const field = change.onMyField ? this.myFieldModel : null;
+        const field = change.onMyField ? this.myFieldModel : this.enemyFieldModel;
         switch (change.action) {
             case "move-ball":
                 const {x, y} = change.from;
@@ -61,6 +61,8 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 field.cells[x][y] = null;
                 if (change.onMyField) {
                     this.emit('move-my-ball', {from: change.from, to: change.to});
+                } else {
+                    this.emit('move-enemy-ball', {from: change.from, to: change.to});
                 }
 
                 break;
@@ -73,6 +75,8 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                         field.cells[change.cells[i].x][change.cells[i].y] = null;
                     }
                     this.emit('delete-my-ball', {cells: change.cells});
+                } else{
+                    this.emit('delete-enemy-ball', {cells: change.cells});
                 }
                 break;
 
@@ -83,6 +87,8 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
 
                     if (change.onMyField) {
                         this.emit('spawn-my-ball', {x, y, color: drop.color});
+                    } else {
+                        this.emit('spawn-enemy-ball', {x, y, color: drop.color});
                     }
                 });
                 break;
@@ -90,6 +96,8 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
             case "stop-ball-animation":
                 if (change.onMyField) {
                     this.emit('stop-my-ball', {cell: change.cell});
+                } else {
+                    this.emit('stop-enemy-ball', {cell: change.cell});
                 }
                 break;
         }
@@ -97,6 +105,10 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
 
     setMyField(field) {
         this.myFieldModel = field;
+    }
+
+    setEnemyField(field) {
+        this.enemyFieldModel = field;
     }
 
     clickMyField(x, y) {
