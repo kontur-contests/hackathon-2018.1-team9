@@ -39,9 +39,12 @@ export default class Field extends PIXI.utils.EventEmitter {
             }
             this.balls[x1][y1] = ball;
 
-            const {x: screenX, y: screenY} = Field.getCellPixel(x1, y1);
-            ball.getContainer().x = screenX;
-            ball.getContainer().y = screenY;
+            const tween =  new createjs.Tween.get(ball.getContainer()).to(Field.getCellPixel(x1, y1), 250)
+                .call(() => {
+                    //ball.stopSelectedAnimation();
+                });
+
+            return tween;
         }
     }
 

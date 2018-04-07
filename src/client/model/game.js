@@ -29,10 +29,14 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
 
     processTick(data) {
         this.tickNumber = data.tick;
+        this.tickTime = new Date();
 
         data.changes.forEach(change => {
             console.log("Tick", this.tickNumber, change);
             switch (change) {
+                case "badTurnTry":
+                    this.myFieldInteractive = true;
+                    break;
                 case "enable-ball-interactive":
                     this.myFieldInteractive = true;
                     this.selectedCell = null;
