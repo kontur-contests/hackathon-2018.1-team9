@@ -29,6 +29,7 @@ export default class Ball {
 
         this.container = new PIXI.Container();
 
+
         if (!COLOR_MAP[color]) {
             console.error(new Error("Missing sprite for color " + color));
         }
