@@ -215,7 +215,7 @@ class Field {
                 }
             }
         }
-
+        findCells = [];
     }
 
 
