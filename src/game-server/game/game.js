@@ -185,6 +185,7 @@ class Game {
                             for (let i = 0; i < cells.length; i++) {
                                 cellsPlain.push(cells[i].toPlain());
                                 cells[i].ball = null;
+                                field.freeCells += 1;
                             }
 
                             this.playersTickChanges[playerIndex].push({
