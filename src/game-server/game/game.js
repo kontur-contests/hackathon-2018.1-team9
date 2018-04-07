@@ -18,6 +18,8 @@ class Game {
 
         this.dropColors = [];
         this.dropPositions = [];
+
+        this.tick = 0;
     }
 
     start(player1) {
