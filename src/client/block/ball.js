@@ -6,7 +6,7 @@ const COLOR_MAP = {
     BLUE: "sprites/balls/blue",
     YELLOW: "sprites/balls/yellow",
     MAGENTA: "sprites/balls/rose",
-    CYAN: "sprites/balls/lighblue",
+    CYAN: "sprites/balls/lightblue",
     RAINBOW: "sprites/balls/rainbow",
     BLACK: "sprites/balls/black"
 };
