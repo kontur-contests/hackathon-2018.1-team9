@@ -27,7 +27,7 @@ class Field {
             maps[x] = [];
             pathLength[x] = [];
             for (let y = -1; y <= this.height; y++) {
-                pathLength[x][y] = 0;
+                pathLength[x][y] = -1;
                 if (x === -1 || y === -1 || x === this.width || y === this.height) {
                     maps[x][y] = -1;
                 } else if (this.cells[x][y].ball === null) {
@@ -38,22 +38,23 @@ class Field {
             }
         }
         let stack = [from];
-        while (stack.length > 0 && pathLength[to.x][to.y] === 0) {
+        pathLength[from.x][from.y]=0;
+        while (stack.length > 0 && pathLength[to.x][to.y] === -1) {
             let newStack = [];
             for (let i = 0; i < stack.length; i++) {
-                if (maps[stack[i].x + 1][stack[i].y] === 0 && pathLength[stack[i].x + 1][stack[i].y] === 0) {
+                if (maps[stack[i].x + 1][stack[i].y] === 0 && pathLength[stack[i].x + 1][stack[i].y] === -1) {
                     pathLength[stack[i].x + 1][stack[i].y] = pathLength[stack[i].x][stack[i].y] + 1;
                     newStack.push(this.cells[stack[i].x + 1][stack[i].y]);
                 }
-                if (maps[stack[i].x - 1][stack[i].y] === 0 && pathLength[stack[i].x - 1][stack[i].y] === 0) {
+                if (maps[stack[i].x - 1][stack[i].y] === 0 && pathLength[stack[i].x - 1][stack[i].y] === -1) {
                     pathLength[stack[i].x - 1][stack[i].y] = pathLength[stack[i].x][stack[i].y] + 1;
                     newStack.push(this.cells[stack[i].x - 1][stack[i].y]);
                 }
-                if (maps[stack[i].x][stack[i].y + 1] === 0 && pathLength[stack[i].x][stack[i].y + 1] === 0) {
+                if (maps[stack[i].x][stack[i].y + 1] === 0 && pathLength[stack[i].x][stack[i].y + 1] === -1) {
                     pathLength[stack[i].x][stack[i].y + 1] = pathLength[stack[i].x][stack[i].y] + 1;
                     newStack.push(this.cells[stack[i].x][stack[i].y + 1]);
                 }
-                if (maps[stack[i].x][stack[i].y - 1] === 0 && pathLength[stack[i].x][stack[i].y - 1] === 0) {
+                if (maps[stack[i].x][stack[i].y - 1] === 0 && pathLength[stack[i].x][stack[i].y - 1] === -1) {
                     pathLength[stack[i].x][stack[i].y - 1] = pathLength[stack[i].x][stack[i].y] + 1;
                     newStack.push(this.cells[stack[i].x][stack[i].y - 1]);
                 }
