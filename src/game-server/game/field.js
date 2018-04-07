@@ -123,7 +123,7 @@ class Field {
             let y = 0;
             do {
                 if (findCells.length > 0) {
-                    this.checkCurrentLine(findCells, x + y, y);
+                    this.checkCurrentLine(findCells, x + y, y, useCells, useColors);
                 }
                 if (this.cells[x+y][y].ball) {
                     findCells.push(this.cells[x + y][y]);
@@ -137,7 +137,7 @@ class Field {
             let x = 0;
             do {
                 if (findCells.length > 0) {
-                    this.checkCurrentLine(findCells, x, y + x);
+                    this.checkCurrentLine(findCells, x, y + x, useCells, useColors);
                 }
                 if (this.cells[x][y+x].ball) {
                     findCells.push(this.cells[x][y + x]);
@@ -154,7 +154,7 @@ class Field {
             let i = 0;
             do {
                 if (findCells.length > 0) {
-                    this.checkCurrentLine(findCells, x - i, y + i);
+                    this.checkCurrentLine(findCells, x - i, y + i, useCells, useColors);
                 }
                 if (this.cells[x-i][y+i].ball) {
                     findCells.push(this.cells[x - i][y + i]);
@@ -169,7 +169,7 @@ class Field {
             let i = 0;
             do {
                 if (findCells.length > 0) {
-                    this.checkCurrentLine(findCells, x - i, y + i);
+                    this.checkCurrentLine(findCells, x - i, y + i, useCells, useColors);
                 }
                 if (this.cells[x-i][y+i].ball) {
                     findCells.push(this.cells[x - i][y + i]);
@@ -205,7 +205,7 @@ class Field {
     }
 
     static checkLines(findCells, useCells, useColors) {
-        if (findCells.length > 4) {
+        if (findCells.length > 5) {
             for (let i = 0; i < findCells.length; i++) {
                 if (!useCells.includes(findCells[i])) {
                     useCells.push(findCells[i]);
