@@ -17,7 +17,7 @@ const ANIMATION_MAP = {
     BLUE: "ball_blue",
     YELLOW: "ball_yellow",
     MAGENTA: "ball_rose",
-    CYAN: "ball_lighblue",
+    CYAN: "ball_lightblue",
     RAINBOW: "ball_rainbow",
     BLACK: "ball_black"
 };
