@@ -9,6 +9,7 @@
     "private": null,
     "scripts": {
         "build-client": "webpack --config webpack.config.js",
+        "build-client-watch": "webpack --config webpack.config.js --watch",
         "start-server": "node ./bin/www"
     },
     "dependencies": {
