@@ -16,10 +16,10 @@ export default class Field extends PIXI.utils.EventEmitter {
         this.container.y = y;
 
         this.container.interactive = true;
-        this.container.on('pointerdown', (params)=>{
-            let coordinate =this.container.toLocal(params['data']['global']);
-            console.log(Field.getCell(coordinate.x,coordinate.y));
-           this.emit('click',Field.getCell(coordinate.x,coordinate.y));
+        this.container.on('pointerdown', (evt)=>{
+            const coordinate = this.container.toLocal(evt.data.global);
+
+            this.emit('click', Field.getCell(coordinate.x,coordinate.y));
         });
     }
 

@@ -10,9 +10,13 @@ export default class GameScene {
 
         this.mainField = new Field(30, 30, 1);
 
+
         this.stage.addChild(this.mainField.getContainer());
 
         game.on('full-update', (data) => this.fullUpdate(data));
+        this.mainField.on('click', (cords) => {
+            game.clickMyField(cords.x, cords.y);
+        });
     }
 
 
@@ -27,7 +31,7 @@ export default class GameScene {
             });
         });
 
-
+        this.game.setMyField(fieldModel);
         this.mainField.renderField(fieldModel);
 
     }
