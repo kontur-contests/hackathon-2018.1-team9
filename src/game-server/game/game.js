@@ -182,10 +182,11 @@ class Game {
                         let cellsPlain = [];
                         if (cells.length > 0) {
                             this.points[0] += point;
-                            for (let i = 0; i < cells; i++) {
+                            for (let i = 0; i < cells.length; i++) {
                                 cellsPlain.push(cells[i].toPlain());
                                 cells[i].ball = null;
                             }
+
                             this.playersTickChanges[playerIndex].push({
                                 action: "delete-ball",
                                 onMyField: true,
