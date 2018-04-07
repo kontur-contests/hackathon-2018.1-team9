@@ -60,11 +60,16 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 }
 
                 break;
+            case "delete-ball":
+                if (change.onMyField) {
+                    this.emit('delete-my-ball', {cells: change.cells});
+                }
+                break;
+
             case "stop-ball-animation":
                 if (change.onMyField) {
                     this.emit('stop-my-ball', {cell: change.cell});
                 }
-
                 break;
         }
     }

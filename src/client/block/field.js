@@ -70,6 +70,10 @@ export default class Field extends PIXI.utils.EventEmitter {
         });
     }
 
+    deleteBall(x,y){
+        this.balls[x][y] = null;
+    }
+
     getContainer() {
         return this.container;
     }

@@ -1,4 +1,5 @@
 const {Cell} = require('./cell.js');
+const {Ball,COLORS} = require('./ball.js');
 
 class Field {
     constructor(width = 9, height = 9) {
@@ -87,7 +88,7 @@ class Field {
 
     getLines() {
         let useCells = [];
-        let useColors = [Ball.COLOR.RAINBOW];
+        let useColors = [COLORS.RAINBOW];
 
         for (let x = 0; x < this.width; x++) {
             let findCells = [];
@@ -99,11 +100,11 @@ class Field {
                     findCells.push(this.cells[x][y]);
                 }
             }
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
 
 
-        for (let y = 0; y < this.width; x++) {
+        for (let y = 0; y < this.width; y++) {
             let findCells = [];
             for (let x = 0; x < this.height; x++) {
                 if (findCells.length > 0) {
@@ -113,7 +114,7 @@ class Field {
                     findCells.push(this.cells[x][y]);
                 }
             }
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
 
 
@@ -124,12 +125,12 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x + y, y);
                 }
-                if (this.cells[x][y].ball) {
+                if (this.cells[x+y][y].ball) {
                     findCells.push(this.cells[x + y][y]);
                 }
                 y++;
             } while (x + y < this.width);
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
         for (let y = 1; y < this.width; y++) {
             let findCells = [];
@@ -138,12 +139,12 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x, y + x);
                 }
-                if (this.cells[x][y].ball) {
+                if (this.cells[x][y+x].ball) {
                     findCells.push(this.cells[x][y + x]);
                 }
                 x++;
             } while (x + y < 5);
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
 
 
@@ -155,12 +156,12 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x - i, y + i);
                 }
-                if (this.cells[x][y].ball) {
+                if (this.cells[x-i][y+i].ball) {
                     findCells.push(this.cells[x - i][y + i]);
                 }
                 i++;
             } while (y + i < this.height);
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
         for (let x = this.width - 1; x >= 0; x--) {
             let findCells = [];
@@ -170,19 +171,19 @@ class Field {
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x - i, y + i);
                 }
-                if (this.cells[x][y].ball) {
+                if (this.cells[x-i][y+i].ball) {
                     findCells.push(this.cells[x - i][y + i]);
                 }
                 i++;
             } while (x - i > 0);
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
 
-        let points =  this.countPoints(useCells.length,useColors.length);
+        let points =  Field.countPoints(useCells.length,useColors.length);
 
         return {
             points : points,
-            useCells: useCells,
+            cells: useCells,
         }
     }
 
@@ -195,11 +196,11 @@ class Field {
         return points*countColor-1;
     }
 
-    static checkCurrentLine(findCells, x, y, useCells, useColors) {
+     checkCurrentLine(findCells, x, y, useCells, useColors) {
         if (this.cells[x][y].ball
             && this.cells[x][y].ball.isComporable(findCells[findCells.length - 1].ball.color)) {
         } else {
-            this.checkLines(findCells, useCells, useColors);
+           Field.checkLines(findCells, useCells, useColors);
         }
     }
 

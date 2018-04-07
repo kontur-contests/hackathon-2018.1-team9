@@ -8,12 +8,16 @@ const DROP_COLORS = [
 ];
 
 class Game {
-    constructor(dropSize, targetScore, fieldSize){
+    constructor(dropSize, targetScore, fieldSize) {
         this.dropSize = dropSize;
         this.targetScore = targetScore;
         this.fields = [
             new Field(fieldSize, fieldSize),
             new Field(fieldSize, fieldSize)
+        ];
+        this.points = [
+            0,
+            0,
         ];
 
         this.fieldSize = fieldSize;
@@ -123,6 +127,10 @@ class Game {
                             field: field,
                             cell: way[way.length - 1].toPlain()
                         });
+                        this.commonTickActions[this.tickNumber + way.length - 1].push({
+                            action: "check-line",
+                            field: field,
+                        });
                     } else {
                         this.playersTickChanges[0].push("badTurnTry");
                     }
@@ -166,6 +174,30 @@ class Game {
 
                         this.playersTickChanges[playerIndex].push("enable-ball-interactive");
                         break;
+                    case "check-line":
+                        const field = data.field;
+                        let {point, cells} = field.getLines();
+                        let cellsPlain = [];
+                        if (cells.length > 0) {
+                            this.points[0] += point;
+                            for (let i = 0; i < cells; i++) {
+                                cellsPlain.push(cells[i].toPlain());
+                                cells[i].ball = null;
+                            }
+                            this.playersTickChanges[0].push({
+                                action: "delete-ball",
+                                onMyField: true,
+                                cells: cellsPlain,
+                            });
+                            this.playersTickChanges[0].push({
+                                action: "add-points",
+                                onMyField: true,
+                                pointAdd: point,
+                                pointTotal: this.points[0]
+                            });
+                        }
+
+                        break;
                 }
             });
 
@@ -187,7 +219,7 @@ class Game {
         return this.dropColors[dropNumber];
     }
 
-    getDropPositions (dropNumber) {
+    getDropPositions(dropNumber) {
         while (this.dropPositions.length < dropNumber + 1) {
             const drop = [];
 

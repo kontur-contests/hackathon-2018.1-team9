@@ -17,7 +17,7 @@ class Ball {
     isComporable(color) {
         return this.color !== COLORS.BLACK
             && color !== COLORS.BLACK
-            (this.color === color || this.color === COLORS.RAINBOW || color === COLORS.RAINBOW)
+            && (this.color === color || this.color === COLORS.RAINBOW || color === COLORS.RAINBOW)
     }
 
     isDestroydable() {

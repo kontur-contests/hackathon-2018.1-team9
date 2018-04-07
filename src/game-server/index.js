@@ -49,18 +49,9 @@ wss.on('connection', (ws, req) => {
         let data = JSON.parse(message);
         if (data['action'] === 'try-move') {
             players[playerUid].calledAction = data;
-            //ws.send(JSON.stringify(tryMove(data['data']['from'], data['data']['to'])));
         }
     });
 
-    // function tryMove(from, to) {
-    //     let data = players[playerUid].game.fields[0].findWay(from, to);
-    //     let plainData = [];
-    //     for (let i = 0; i < data.length; i++) {
-    //         plainData.push(data[i].toPlain());
-    //     }
-    //     return plainData;
-    // }
 
     ws.on('close', () => {
         if (players[playerUid].sockets.includes(ws)) {

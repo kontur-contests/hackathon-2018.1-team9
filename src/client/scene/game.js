@@ -29,7 +29,13 @@ export default class GameScene {
         });
 
         game.on('move-my-ball', ({from, to}) => {
-            this.mainField.moveBall(from ,to);
+            this.mainField.moveBall(from, to);
+        });
+
+        game.on('delete-my-ball', (cells) => {
+            for (let i = 0; i < cells.length; i++) {
+                this.mainField.deleteBall(cells[i].x, cells[i].y);
+            }
         });
 
         game.on('stop-my-ball', ({cell: {x, y}}) => {
@@ -38,7 +44,7 @@ export default class GameScene {
     }
 
 
-    fullUpdate (gameData){
+    fullUpdate(gameData) {
         console.log(gameData);
 
         const fieldModel = new FieldModel(gameData.myFieldData.width, gameData.myFieldData.height);
