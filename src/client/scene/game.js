@@ -11,7 +11,7 @@ export default class GameScene {
 
         const fieldModel = new FieldModel(9, 9);
 
-        fieldModel.cells[4][5] = 1;
+        fieldModel.cells[0][0] = 1;
         fieldModel.cells[6][5] = 1;
 
         this.mainField.renderField(fieldModel);

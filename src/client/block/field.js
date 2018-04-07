@@ -1,4 +1,9 @@
+import Ball from './ball.js';
+
+
 const sizeCell = 60;
+
+
 
 export default class Field extends PIXI.utils.EventEmitter {
     constructor(x, y, scale) {
@@ -22,11 +27,13 @@ export default class Field extends PIXI.utils.EventEmitter {
         fieldModel.cells.forEach((row, x) => {
            row.forEach((cell, y) => {
                if (cell) {
-                   const ball = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/balls/blue'));
+                   const ball = new Ball('BLUE');
+                   const {x: screenX, y: screenY} = Field.getCellClient(x, y);
 
-                   this.container.addChild(ball);
-                   ball.x = x * 50;
-                   ball.y = y * 50;
+                   this.container.addChild(ball.getContainer());
+
+                   ball.getContainer().x = screenX;
+                   ball.getContainer().y = screenY;
                }
            })
         });
@@ -45,8 +52,8 @@ export default class Field extends PIXI.utils.EventEmitter {
 
     static getCellClient(x, y) {
         return {
-            x: Math.ceil(x * sizeCell - sizeCell / 2),
-            y: Math.ceil(y * sizeCell - sizeCell / 2),
+            x: Math.ceil(x * sizeCell + sizeCell / 2),
+            y: Math.ceil(y * sizeCell + sizeCell / 2),
         }
     }
 }
