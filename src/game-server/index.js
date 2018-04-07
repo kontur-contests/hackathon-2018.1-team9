@@ -7,6 +7,8 @@ const {Game} = require('./game/game.js');
 
 const players = {};
 
+freePlayers = [];
+
 const wss = new WebSocket.Server({
     port: 3001,
     perMessageDeflate: {
@@ -38,8 +40,14 @@ wss.on('connection', (ws, req) => {
 
     if (!players[playerUid]) {
         players[playerUid] = new Player(playerUid);
-        const game = new Game(3, 200, 9);
-        game.start(players[playerUid]);
+        freePlayers.push(players[playerUid]);
+
+        if (freePlayers.length > 1) {
+            const currentPlayers = freePlayers.splice(0, 2);
+            const game = new Game(3, 200, 9);
+
+            setTimeout(() => {game.start(currentPlayers[0], currentPlayers[1])}, 500);
+        }
     }
 
     players[playerUid].sockets.push(ws);
@@ -61,15 +69,17 @@ wss.on('connection', (ws, req) => {
 
     const playerGame = players[playerUid].game;
 
-    const gameData = {
-        myFieldData: {
-            width: playerGame.fields[0].width,
-            height: playerGame.fields[0].height,
-            field: playerGame.fields[0].cells.map((x) => x.map(
-                (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
-            ))
-        }
-    };
+    if (playerGame) {
+        const gameData = {
+            myFieldData: {
+                width: playerGame.fields[0].width,
+                height: playerGame.fields[0].height,
+                field: playerGame.fields[0].cells.map((x) => x.map(
+                    (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+                ))
+            }
+        };
 
-    ws.send(JSON.stringify({action: "full-update", data: gameData}));
+        ws.send(JSON.stringify({action: "full-update", data: gameData}));
+    }
 });

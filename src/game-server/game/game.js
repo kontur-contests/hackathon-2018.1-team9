@@ -39,12 +39,30 @@ class Game {
         this.commonTickActions = {};
     }
 
-    start(player1) {
-        this.players.push(player1);
+    start(player1, player2) {
+        this.players.push(player1, player2);
         player1.game = this;
+        player2.game = this;
 
         this.doDropToField(this.fields[0]);
-        this.doDropToField(this.fields[0]);
+        this.doDropToField(this.fields[1]);
+
+        this.players.forEach((player, playerIndex) => {
+            const gameData = {
+                myFieldData: {
+                    width: this.fields[playerIndex].width,
+                    height: this.fields[playerIndex].height,
+                    field: this.fields[playerIndex].cells.map((x) => x.map(
+                        (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+                    ))
+                }
+            };
+
+            player.sockets.forEach((ws) => {
+                ws.send(JSON.stringify({action: "full-update", data: gameData}));
+            })
+
+        });
 
         this.paused = false;
         this.tick();
@@ -98,7 +116,7 @@ class Game {
                     const way = field.findWay(player.calledAction.data.from, player.calledAction.data.to);
                     if (way.length) {
                         player.ballInteractive = false;
-                        this.playersTickChanges[0].push({ballInteractive: false});
+                        this.playersTickChanges[playerIndex].push({ballInteractive: false});
                         way.forEach((cell, idx, arr) => {
                             if (idx === arr.length - 1) {
                                 return;
@@ -153,19 +171,24 @@ class Game {
                             data.field.cells[x][y].ball = null;
                             data.field.cells[x1][y1].ball = ball;
 
-                            this.playersTickChanges[0].push({
-                                action: "move-ball",
-                                onMyField: true,
-                                from: data.from,
-                                to: data.to
+                            this.players.forEach((player, playerIndex) => {
+                                this.playersTickChanges[playerIndex].push({
+                                    action: "move-ball",
+                                    onMyField: data.field === this.fields[playerIndex],
+                                    from: data.from,
+                                    to: data.to
+                                });
                             });
+
                         }
                         break;
                     case "stop-ball-animation":
-                        this.playersTickChanges[0].push({
-                            action: "stop-ball-animation",
-                            onMyField: true,
-                            cell: data.cell
+                        this.players.forEach((player, playerIndex) => {
+                            this.playersTickChanges[playerIndex].push({
+                                action: "stop-ball-animation",
+                                onMyField: data.field === this.fields[playerIndex],
+                                cell: data.cell
+                            });
                         });
                         break;
                     case "enable-ball-interactive": {
@@ -177,7 +200,6 @@ class Game {
                         break;
                     case "check-line":
                         const field = data.field;
-                        const playerIndex = this.fields.indexOf(field);
                         let {point, cells} = field.getLines();
                         let cellsPlain = [];
                         if (cells.length > 0) {
@@ -188,29 +210,34 @@ class Game {
                                 field.freeCells += 1;
                             }
 
-                            this.playersTickChanges[playerIndex].push({
-                                action: "delete-ball",
-                                onMyField: true,
-                                cells: cellsPlain,
-                            });
-                            this.playersTickChanges[playerIndex].push({
-                                action: "add-points",
-                                onMyField: true,
-                                pointAdd: point,
-                                pointTotal: this.points[playerIndex]
+
+                            this.players.forEach((player, playerIndex) => {
+                                this.playersTickChanges[playerIndex].push({
+                                    action: "delete-ball",
+                                    onMyField: data.field === this.fields[playerIndex],
+                                    cells: cellsPlain,
+                                });
+                                this.playersTickChanges[playerIndex].push({
+                                    action: "add-points",
+                                    onMyField: data.field === this.fields[playerIndex],
+                                    pointAdd: point,
+                                    pointTotal: this.points[playerIndex]
+                                });
                             });
                         } else {
                             const drops = this.doDropToField(field);
 
-                            this.playersTickChanges[playerIndex].push({
-                                action: "spawn-balls",
-                                onMyField: true,
-                                drops: drops.map(drop => {
-                                   return {
-                                       position: drop.position,
-                                       color: drop.ball.color
-                                   }
-                                })
+                            this.players.forEach((player, playerIndex) => {
+                                this.playersTickChanges[playerIndex].push({
+                                    action: "spawn-balls",
+                                    onMyField: data.field === this.fields[playerIndex],
+                                    drops: drops.map(drop => {
+                                        return {
+                                            position: drop.position,
+                                            color: drop.ball.color
+                                        }
+                                    })
+                                });
                             });
                         }
 
