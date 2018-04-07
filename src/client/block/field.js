@@ -1,9 +1,6 @@
 import Ball from './ball.js';
 
-
 const sizeCell = 60;
-
-
 
 export default class Field extends PIXI.utils.EventEmitter {
     constructor(x, y, scale) {
@@ -43,14 +40,14 @@ export default class Field extends PIXI.utils.EventEmitter {
         return this.container;
     }
 
-    static getCellServer(x, y) {
+    static getCell(x, y) {
         return {
             x: Math.ceil(x / sizeCell),
             y: Math.ceil(y / sizeCell),
         }
     }
 
-    static getCellClient(x, y) {
+    static getCellPixel(x, y) {
         return {
             x: Math.ceil(x * sizeCell + sizeCell / 2),
             y: Math.ceil(y * sizeCell + sizeCell / 2),

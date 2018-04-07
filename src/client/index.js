@@ -24,8 +24,8 @@ app.ticker.add((delta) => {
 
 
 console.log(navigator.cookies);
-
-const ws = new WebSocket("ws://localhost:8081/ws/");
+const host = location.host;
+const ws = new WebSocket("ws://"+host+"/ws/");
 
 ws.addEventListener('open', () => {
    ws.addEventListener('message', (data) => {
