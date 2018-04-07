@@ -27,6 +27,14 @@ export default class GameScene {
         game.on('deselect-cell', (cords) => {
             this.mainField.balls[cords.x][cords.y].stopSelectedAnimation();
         });
+
+        game.on('move-my-ball', ({from, to}) => {
+            this.mainField.moveBall(from ,to);
+        });
+
+        game.on('stop-my-ball', ({cell: {x, y}}) => {
+            this.mainField.balls[x][y].stopSelectedAnimation();
+        });
     }
 
 

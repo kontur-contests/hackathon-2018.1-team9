@@ -7,6 +7,7 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
         this.myFieldInteractive = true;
 
         this.selectedCell = null;
+        this.tickNumber = 0;
 
         const host = location.host;
         this.ws = new WebSocket("ws://" + host + "/ws/");
@@ -18,8 +19,54 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 if (data.action) {
                     this.emit(data.action, data.data);
                 }
+
+                if (data.tick) {
+                    this.processTick(data);
+                }
             });
         });
+    }
+
+    processTick(data) {
+        this.tickNumber = data.tick;
+
+        data.changes.forEach(change => {
+            console.log("Tick", this.tickNumber, change);
+            switch (change) {
+                case "enable-ball-interactive":
+                    this.myFieldInteractive = true;
+                    this.selectedCell = null;
+                    break;
+
+                default:
+                    if (typeof change === 'object') {
+                        this.processChange(change);
+                    }
+            }
+        });
+    }
+
+    processChange(change) {
+        switch (change.action) {
+            case "move-ball":
+                const field = change.onMyField ? this.myFieldModel : null;
+                const {x, y} = change.from;
+                const {x: x1, y: y1} = change.to;
+                const ball = field.cells[x][y];
+                field.cells[x1][y1] = ball;
+                field.cells[x][y] = null;
+                if (change.onMyField) {
+                    this.emit('move-my-ball', {from: change.from, to: change.to});
+                }
+
+                break;
+            case "stop-ball-animation":
+                if (change.onMyField) {
+                    this.emit('stop-my-ball', {cell: change.cell});
+                }
+
+                break;
+        }
     }
 
     setMyField(field) {

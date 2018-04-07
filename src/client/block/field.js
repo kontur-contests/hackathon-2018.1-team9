@@ -22,8 +22,27 @@ export default class Field extends PIXI.utils.EventEmitter {
             this.emit('click', Field.getCell(coordinate.x,coordinate.y));
         });
 
-        this.balls = {};
+        this.balls = [];
 
+    }
+
+    moveBall(from, to) {
+        const {x, y} = from;
+        const {x: x1, y: y1} = to;
+        const ball = this.balls[x][y];
+
+        if (ball) {
+            ball.startSelectedAnimation();
+            this.balls[x][y] = null;
+            if (!this.balls[x1]) {
+                this.balls[x1] = [];
+            }
+            this.balls[x1][y1] = ball;
+
+            const {x: screenX, y: screenY} = Field.getCellPixel(x1, y1);
+            ball.getContainer().x = screenX;
+            ball.getContainer().y = screenY;
+        }
     }
 
     renderField(fieldModel) {
@@ -38,7 +57,7 @@ export default class Field extends PIXI.utils.EventEmitter {
                    const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
                    if (!this.balls[x]) {
-                       this.balls[x] = {};
+                       this.balls[x] = [];
                    }
                    this.balls[x][y] = ball;
 

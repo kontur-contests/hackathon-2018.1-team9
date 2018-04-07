@@ -4,6 +4,9 @@ class Player{
         this.uid = uid;
 
         this.sockets = [];
+        this.game = null;
+        this.calledAction = null;
+        this.ballInteractive = true;
     }
 }
 
