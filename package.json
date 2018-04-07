@@ -10,7 +10,8 @@
     "scripts": {
         "build-client": "webpack --config webpack.config.js",
         "build-client-watch": "webpack --config webpack.config.js --watch",
-        "start-server": "node ./bin/www"
+        "start-server": "node ./bin/www",
+        "start-game-server": "node ./src/game-server/index.js"
     },
     "dependencies": {
         "cookie-parser": "~1.4.3",
