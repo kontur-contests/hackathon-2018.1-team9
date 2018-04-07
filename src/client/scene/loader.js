@@ -1,6 +1,6 @@
 import GameScene from './game.js';
 
-default export class LoaderScene {
+export default class LoaderScene {
     constructor(app) {
         this.app = app;
 
@@ -8,22 +8,26 @@ default export class LoaderScene {
 
         this.done = false;
 
-        const loader = PIXI.loaders.Loader;
+        const loader = app.loader;
 
-        loader.add();
+        loader.add('/assets/sprites.json')
+            .add('pole.png', '/pole.png');
 
-        loader.onLoad.add(() => {
-
+        loader.onLoad.add((file) => {
+            console.log("file", file);
         });
 
         loader.onComplete.add(() => {
-
+            this.done = true;
         });
+
+        loader.load();
     }
 
     update(delta) {
         if (this.done) {
-            return
+            console.log("Game scene");
+            return new GameScene(this.app);
         }
 
         return this;

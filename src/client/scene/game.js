@@ -1,21 +1,18 @@
+import Field from '../block/field.js';
 
-
-class GameScene {
+export default class GameScene {
     constructor(app) {
         this.app = app;
 
-        this.sceneStage = new PIXI.Container();
+        this.stage = new PIXI.Container();
+
+        this.mainField = new Field(30, 30, 1);
+
+        this.stage.addChild(this.mainField.getContainer());
+
     }
 
     update(delta) {
-
-    }
-
-    deactive() {
-        this.app.stage.removeChildren(this.sceneStage);
-    }
-
-    activate() {
-        this.app.stage.addChild(this.sceneStage);
+        return this;
     }
 }

@@ -1,5 +1,5 @@
 
-class Ball{
+export default class Ball{
     constructor(color) {
         this.color = color;
 
