@@ -7,7 +7,7 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/start-blue5.png","sprites/balls/start-blue6.png","sprites/balls/start-blue7.png","sprites/balls/start-blue8.png","sprites/balls/start-blue1.png",]
+        frames: ["sprites/balls/start-blue5","sprites/balls/start-blue6","sprites/balls/start-blue7","sprites/balls/start-blue8","sprites/balls/start-blue1",]
     },
 
     start_ball_yellow: {
@@ -16,7 +16,7 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/start-yellow5.png","sprites/balls/start-yellow6.png","sprites/balls/start-yellow7.png","sprites/balls/start-yellow8.png","sprites/balls/start-yellow1.png",]
+        frames: ["sprites/balls/start-yellow5","sprites/balls/start-yellow6","sprites/balls/start-yellow7","sprites/balls/start-yellow8","sprites/balls/start-yellow1",]
     },
 
     start_ball_green: {
@@ -25,7 +25,7 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/start-green5.png","sprites/balls/start-green6.png","sprites/balls/start-green7.png","sprites/balls/start-green8.png","sprites/balls/start-green1.png",]
+        frames: ["sprites/balls/start-green5","sprites/balls/start-green6","sprites/balls/start-green7","sprites/balls/start-green8","sprites/balls/start-green1",]
     },
 
     start_ball_lightblue: {
@@ -34,7 +34,7 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/start-lightblue5.png","sprites/balls/start-lightblue6.png","sprites/balls/start-lightblue7.png","sprites/balls/start-lightblue8.png","sprites/balls/start-lightblue1.png",]
+        frames: ["sprites/balls/start-lightblue5","sprites/balls/start-lightblue6","sprites/balls/start-lightblue7","sprites/balls/start-lightblue8","sprites/balls/start-lightblue1",]
     },
 
     start_ball_red: {
@@ -43,7 +43,7 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/start-red5.png","sprites/balls/start-red6.png","sprites/balls/start-red7.png","sprites/balls/start-red8.png","sprites/balls/start-red1.png",]
+        frames: ["sprites/balls/start-red5","sprites/balls/start-red6","sprites/balls/start-red7","sprites/balls/start-red8","sprites/balls/start-red1",]
     },
 
     start_ball_rose: {
@@ -52,10 +52,18 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/start-rose5.png","sprites/balls/start-rose6.png","sprites/balls/start-rose7.png","sprites/balls/start-rose8.png","sprites/balls/start-rose1.png",]
+        frames: ["sprites/balls/start-rose5","sprites/balls/start-rose6","sprites/balls/start-rose7","sprites/balls/start-rose8","sprites/balls/start-rose1",]
     },
 
 
+    start_ball_black: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/black"]
+    },
     ball_black: {
         pivot: {
             x: 30,
@@ -87,6 +95,14 @@ let blocks = {
         },
         frameRate: 0.28,
         frames: ["sprites/balls/lightblue1", "sprites/balls/lightblue2", "sprites/balls/lightblue3", "sprites/balls/lightblue4", "sprites/balls/lightblue5", "sprites/balls/lightblue6"],
+    },
+    start_ball_rainbow: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/rainbow"],
     },
     ball_rainbow: {
         pivot: {

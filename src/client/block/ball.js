@@ -23,14 +23,14 @@ const ANIMATION_MAP = {
 };
 
 
-export default class Ball{
+export default class Ball {
     constructor(color) {
         this.color = color;
 
         this.container = new PIXI.Container();
 
         if (!COLOR_MAP[color]) {
-            console.error(new Error("Missing sprite for color "+color));
+            console.error(new Error("Missing sprite for color " + color));
         }
 
         const ball = this.ball = new PIXI.Sprite(new PIXI.Texture.fromFrame(COLOR_MAP[color]));
@@ -41,8 +41,18 @@ export default class Ball{
         animation.stop();
         this.animation.visible = false;
 
+        const animationSpawn = this.animationSpawn = getAnimation('start_' + ANIMATION_MAP[this.color]);
+        animationSpawn.stop();
+        this.animationSpawn.visible = false;
+
+        const animationDestroy = this.animationDestroy = getAnimation('destroy_' + ANIMATION_MAP[this.color]);
+        animationDestroy.stop();
+        this.animationDestroy.visible = false;
+
         this.container.addChild(ball);
         this.container.addChild(animation);
+        this.container.addChild(animationSpawn);
+        this.container.addChild(animationDestroy);
 
         console.log("ball", ball);
         console.log("animation", animation);
@@ -60,13 +70,40 @@ export default class Ball{
         this.animation.stop();
     }
 
+    startSpawnAnimation() {
+        this.animationSpawn.visible = true;
+        this.ball.visible = false;
+        this.animationSpawn.play();
+    }
+
+    stopSpawnAnimation() {
+        this.animationSpawn.visible = false;
+        this.ball.visible = true;
+        this.animationSpawn.stop();
+    }
+
+    startDestroyAnimation() {
+        this.animationDestroy.visible = true;
+        this.ball.visible = false;
+        this.animationDestroy.play();
+    }
+
+    stopDestroyAnimation() {
+        this.animationDestroy.visible = false;
+        this.ball.visible = true;
+        this.animationDestroy.stop();
+    }
+
     getContainer() {
         return this.container;
     }
 
-    remove (){
-        let index = this.container.parent.getChildIndex(this.container);
-        console.log(index);
-        this.container.parent.removeChildAt(index);
+    remove() {
+        this.startDestroyAnimation();
+        setTimeout(() => {
+            let index = this.container.parent.getChildIndex(this.container);
+            this.container.parent.removeChildAt(index);
+            this.stopDestroyAnimation();
+        }, 250);
     }
 }
