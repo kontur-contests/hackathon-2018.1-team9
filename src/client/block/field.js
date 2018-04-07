@@ -42,7 +42,7 @@ export default class Field extends PIXI.utils.EventEmitter {
             }
             this.balls[x1][y1] = ball;
 
-            const tween =  new createjs.Tween.get(ball.getContainer()).to(Field.getCellPixel(x1, y1), 250));
+            const tween =  new createjs.Tween.get(ball.getContainer()).to(Field.getCellPixel(x1, y1), 250);
 
             return tween;
         }
