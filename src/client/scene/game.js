@@ -63,9 +63,13 @@ export default class GameScene {
 
         game.on('move-enemy-ball', ({from, to}) => {
             const tween = this.secondField.moveBall(from ,to);
-            tween.startTime = this.lastTickTime;
 
-            this.animationTweens.push(tween);
+            if (tween) {
+                this.animationTweens.push(tween);
+                tween.call(() => {
+                    this.animationTweens.splice(this.animationTweens.indexOf(tween), 1);
+                })
+            }
         });
 
         game.on('delete-enemy-ball', (cells) => {

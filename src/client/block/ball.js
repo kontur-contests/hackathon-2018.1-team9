@@ -39,19 +39,20 @@ export default class Ball{
 
         const animation = this.animation = getAnimation(ANIMATION_MAP[this.color]);
         animation.stop();
+        this.animation.visible = false;
 
         this.container.addChild(ball);
     }
 
     startSelectedAnimation() {
-        this.container.removeChildAt(0);
-        this.container.addChild(this.animation);
+        this.animation.visible = true;
+        this.ball.visible = false;
         this.animation.play();
     }
 
     stopSelectedAnimation() {
-        this.container.removeChildAt(0);
-        this.container.addChild(this.ball);
+        this.animation.visible = false;
+        this.ball.visible = true;
         this.animation.stop();
     }
 
