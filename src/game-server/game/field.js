@@ -84,9 +84,6 @@ class Field {
     }
 
     getLines() {
-        let countBall = 0;
-        let countLine = 0;
-        let countColor = 0;
         let useCells = [];
         let useColors = [Ball.COLOR.RAINBOW];
 
@@ -179,8 +176,22 @@ class Field {
             this.checkLines(findCells, useCells, useColors);
         }
 
+        let points =  this.countPoints(useCells.length,useColors.length);
+
+        return {
+            points : points,
+            useCells: useCells,
+        }
     }
 
+    static countPoints(countCells, countColor){
+        let points = 0;
+        if (countCells>=5){
+            let an = 2+(countCells-5-1);
+            points = 5+((countCells-2))/2*(countCells-5)
+        }
+        return points*countColor-1;
+    }
 
     static checkCurrentLine(findCells, x, y, useCells, useColors) {
         if (this.cells[x][y].ball
