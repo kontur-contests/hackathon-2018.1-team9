@@ -39,6 +39,8 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                     this.selectedCell = {x, y};
 
                     this.emit('select-cell', this.selectedCell);
+                } else {
+                    this.selectedCell = null;
                 }
             } else if (this.selectedCell) {
                 this.myFieldInteractive = false;
