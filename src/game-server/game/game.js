@@ -87,6 +87,12 @@ class Game {
             socket.send(changes1);
         });
 
+        const changes2 = JSON.stringify({tick: this.tickNumber, changes: this.playersTickChanges[1]});
+
+        this.players[1].sockets.forEach(socket => {
+            socket.send(changes2);
+        });
+
         this.playersTickChanges = [
             [], []
         ];
