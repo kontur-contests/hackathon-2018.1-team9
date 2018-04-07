@@ -1,6 +1,7 @@
 
 export default class Field extends PIXI.utils.EventEmitter {
     constructor(x, y, scale) {
+        super();
         this.container = new PIXI.Container();
 
         const backgroundSprite = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/field/field-background.jpeg'));
@@ -12,12 +13,18 @@ export default class Field extends PIXI.utils.EventEmitter {
     }
 
     renderField(fieldModel) {
-        this.container.removeChildren(1, this.container.children.length - 1);
+        if (this.container.children.length > 1) {
+            this.container.removeChildren(1, this.container.children.length - 1);
+        }
 
         fieldModel.cells.forEach((row, x) => {
            row.forEach((cell, y) => {
                if (cell) {
-                   const ball = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/ball/ball.jpeg'));
+                   const ball = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/balls/blue'));
+
+                   this.container.addChild(ball);
+                   ball.x = x * 50;
+                   ball.y = y * 50;
                }
            })
         });
