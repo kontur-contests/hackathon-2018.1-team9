@@ -1,14 +1,22 @@
 {
-  "name": "hackathon-2018-team-9",
-  "version": "0.1.0",
-  "description": "Game",
-  "main": "app.js",
-  "repository": "git@github.com:skbkontur/hackathon-2018.1-team9.git",
-  "author": "Eugene Churmanov <echurmanov@yandex-team.ru>",
-  "license": "MIT",
-  "private": null,
-  "dependencies": {
-    "express": "^4.16.3",
-    "ws": "^5.1.1"
-  }
+    "name": "hackathon-2018-team-9",
+    "version": "0.1.0",
+    "description": "Game",
+    "main": "app.js",
+    "repository": "git@github.com:skbkontur/hackathon-2018.1-team9.git",
+    "author": "Eugene Churmanov <echurmanov@yandex-team.ru>",
+    "license": "MIT",
+    "private": null,
+    "scripts": {
+        "start": "node ./bin/www"
+    },
+    "dependencies": {
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.6.9",
+        "express": "~4.16.0",
+        "http-errors": "~1.6.2",
+        "morgan": "~1.9.0",
+        "twig": "~0.10.3",
+        "ws": "^5.1.1"
+    }
 }
