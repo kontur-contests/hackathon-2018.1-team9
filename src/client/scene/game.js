@@ -31,6 +31,7 @@ export default class GameScene {
 
         game.on('select-cell', (cords) => {
             console.log("Select cell", cords);
+            console.log(this.mainField.balls[cords.x][cords.y]);
             this.mainField.balls[cords.x][cords.y].startSelectedAnimation();
         });
 

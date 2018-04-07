@@ -7,6 +7,7 @@ export default class Field extends PIXI.utils.EventEmitter {
         super();
 
         this.container = new PIXI.Container();
+        this.container.ss = scale;
 
         const backgroundSprite = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/field/field-background'));
 

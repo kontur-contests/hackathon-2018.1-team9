@@ -42,7 +42,10 @@ export default class Ball{
         this.animation.visible = false;
 
         this.container.addChild(ball);
-        this.container.addChild(this.animation);
+        this.container.addChild(animation);
+
+        console.log("ball", ball);
+        console.log("animation", animation);
     }
 
     startSelectedAnimation() {

@@ -69,27 +69,22 @@ let blocks = {
 
 
 export default function getClipByName(name) {
-    if (clips.length === 0) {
-        initClips();
+    let textureArray = [];
+
+    for (let i = 0; i < blocks[name].frames.length; i++) {
+        let texture = PIXI.Texture.fromFrame(blocks[name].frames[i]);
+        textureArray.push(texture);
     }
 
-    return clips[name] || null;
+    const clip = new PIXI.extras.AnimatedSprite(textureArray);
+    clip.pivot = blocks[name].pivot;
+    clip.animationSpeed = blocks[name].frameRate;
+
+    return clip;
 
 }
 
 
 export function initClips() {
-    for (let color in blocks) {
-        let textureArray = [];
 
-        for (let i = 0; i < blocks[color].frames.length; i++) {
-            let texture = PIXI.Texture.fromFrame(blocks[color].frames[i]);
-            textureArray.push(texture);
-        }
-
-        clips[color] = new PIXI.extras.AnimatedSprite(textureArray);
-        clips[color].pivot = blocks[color].pivot;
-        clips[color].animationSpeed = blocks[color].frameRate;
-
-    }
 }
