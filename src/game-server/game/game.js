@@ -48,11 +48,20 @@ class Game {
         this.doDropToField(this.fields[1]);
 
         this.players.forEach((player, playerIndex) => {
+            const otherPlayerIndex = playerIndex === 0 ? 1 : 0;
+
             const gameData = {
                 myFieldData: {
                     width: this.fields[playerIndex].width,
                     height: this.fields[playerIndex].height,
                     field: this.fields[playerIndex].cells.map((x) => x.map(
+                        (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+                    ))
+                },
+                otherFieldData: {
+                    width: this.fields[otherPlayerIndex].width,
+                    height: this.fields[otherPlayerIndex].height,
+                    field: this.fields[otherPlayerIndex].cells.map((x) => x.map(
                         (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
                     ))
                 }

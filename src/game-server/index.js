@@ -70,11 +70,21 @@ wss.on('connection', (ws, req) => {
     const playerGame = players[playerUid].game;
 
     if (playerGame) {
+        const playerIndex = playerGame.players.indexOf(players[playerUid]);
+        const otherPlayerIndex = playerIndex === 0 ? 1 : 0 ;
+
         const gameData = {
             myFieldData: {
-                width: playerGame.fields[0].width,
-                height: playerGame.fields[0].height,
-                field: playerGame.fields[0].cells.map((x) => x.map(
+                width: playerGame.fields[playerIndex].width,
+                height: playerGame.fields[playerIndex].height,
+                field: playerGame.fields[playerIndex].cells.map((x) => x.map(
+                    (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+                ))
+            },
+            otherFieldData: {
+                width: playerGame.fields[otherPlayerIndex].width,
+                height: playerGame.fields[otherPlayerIndex].height,
+                field: playerGame.fields[otherPlayerIndex].cells.map((x) => x.map(
                     (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
                 ))
             }

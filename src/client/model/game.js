@@ -93,6 +93,10 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
         this.myFieldModel = field;
     }
 
+    setEnemyField(field) {
+        this.enemyFieldModel = field;
+    }
+
     clickMyField(x, y) {
         console.log("Click field", x, y);
         console.log(this.myFieldInteractive);
