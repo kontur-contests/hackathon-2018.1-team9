@@ -25,7 +25,7 @@ export default class Field extends PIXI.utils.EventEmitter {
            row.forEach((cell, y) => {
                if (cell) {
                    const ball = new Ball('BLUE');
-                   const {x: screenX, y: screenY} = Field.getCellClient(x, y);
+                   const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
                    this.container.addChild(ball.getContainer());
 
