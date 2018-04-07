@@ -10,6 +10,10 @@ export default class GameScene {
 
         this.mainField = new Field(30, 30, 1);
 
+        this.lastTickTime = null;
+
+        this.animationTweens = [];
+
 
         this.stage.addChild(this.mainField.getContainer());
 
@@ -29,7 +33,10 @@ export default class GameScene {
         });
 
         game.on('move-my-ball', ({from, to}) => {
-            this.mainField.moveBall(from ,to);
+            const tween = this.mainField.moveBall(from ,to);
+            tween.startTime = this.lastTickTime;
+
+            this.animationTweens.push(tween);
         });
 
         game.on('stop-my-ball', ({cell: {x, y}}) => {
@@ -55,6 +62,13 @@ export default class GameScene {
     }
 
     update(delta) {
+
+        const time = (new Date()).getTime();
+
+        this.animationTweens.forEach((tween) => {
+            tween.advance(delta);
+        });
+
         return this;
     }
 }

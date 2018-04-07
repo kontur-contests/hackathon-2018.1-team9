@@ -29,6 +29,7 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
 
     processTick(data) {
         this.tickNumber = data.tick;
+        this.tickTime = new Date();
 
         data.changes.forEach(change => {
             console.log("Tick", this.tickNumber, change);
