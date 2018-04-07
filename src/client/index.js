@@ -45,6 +45,8 @@
 
 
 (function(){
+    console.log(navigator.cookies);
+
     const ws = new WebSocket("ws://localhost:8081/ws/");
 
     ws.addEventListener('open', () => {

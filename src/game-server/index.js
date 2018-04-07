@@ -1,4 +1,11 @@
 const WebSocket = require('ws');
+const url = require('url');
+const cookieParser = require('cookie-parser')();
+
+const {Player} = require('./server/player.js');
+const {Game} = require('./game/game.js');
+
+const players = {};
 
 const wss = new WebSocket.Server({
     port: 3001,
@@ -23,10 +30,40 @@ const wss = new WebSocket.Server({
     }
 });
 
-wss.on('connection',  (ws) => {
+wss.on('connection',  (ws, req) => {
+    cookieParser(req, null, () => {});
+
+    const playerUid = req.cookies.playerUid;
+
+    if (!players[playerUid]) {
+        players[playerUid] = new Player(playerUid);
+        const game = new Game(3, 200, 9);
+        game.start(players[playerUid]);
+    }
+
+    players[playerUid].sockets.push(ws);
+
     ws.on('message', (message) => {
         console.log('received: %s', message);
     });
 
-    ws.send('something');
+    ws.on('close', () => {
+        if (players[playerUid].sockets.includes(ws)) {
+            players[playerUid].sockets.splice(players[playerUid].sockets.indexOf(ws), 1);
+        }
+    });
+
+    const playerGame = players[playerUid].game;
+
+    const gameData = {
+        myFieldData: {
+            width: playerGame.fields[0].width,
+            height: playerGame.fields[0].height,
+            field: playerGame.fields[0].cells.map((x) => x.map(
+                (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+            ))
+        }
+    };
+
+    ws.send(JSON.stringify({action: "full-update", data: gameData}));
 });

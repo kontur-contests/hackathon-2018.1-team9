@@ -20,8 +20,16 @@ class Game {
         this.dropPositions = [];
     }
 
+    start(player1) {
+        this.player1 = player1;
+        this.player1.game = this;
+
+        this.doDropToField(this.fields[0]);
+        this.doDropToField(this.fields[0]);
+    }
+
     getDropColors(dropNumber) {
-        while (this.dropColors.length < dropNumber - 1) {
+        while (this.dropColors.length < dropNumber + 1) {
             const drop = [];
 
             for (let i = 0; i < this.dropSize; i++) {
@@ -31,11 +39,11 @@ class Game {
             this.dropColors.push(drop);
         }
 
-        return this.dropColors(dropNumber);
+        return this.dropColors[dropNumber];
     }
 
     getDropPositions (dropNumber) {
-        while (this.dropPositions.length < dropNumber - 1) {
+        while (this.dropPositions.length < dropNumber + 1) {
             const drop = [];
 
             for (let i = 0; i < this.dropSize; i++) {
@@ -45,7 +53,7 @@ class Game {
             this.dropPositions.push(drop);
         }
 
-        return this.dropPositions(dropNumber);
+        return this.dropPositions[dropNumber];
     }
 
     /**
