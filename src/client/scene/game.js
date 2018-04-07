@@ -8,12 +8,16 @@ export default class GameScene {
 
         this.stage = new PIXI.Container();
 
-        this.mainField = new Field(30, 30, 1);
+        this.mainField = new Field(30, 180, 1);
 
         this.lastTickTime = null;
 
         this.animationTweens = [];
 
+        const background = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/background'));
+        background.pivot.x = Math.floor(background.width / 2);
+        background.x = Math.floor(app.view.width / 2);
+        this.stage.addChild(background);
 
         this.stage.addChild(this.mainField.getContainer());
 
