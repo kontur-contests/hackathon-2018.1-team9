@@ -43,38 +43,39 @@ class Field {
             for (let i = 0; i < stack.length; i++) {
                 if (maps[stack[i].x + 1][stack[i].y] === 0 && pathLength[stack[i].x + 1][stack[i].y] === 0) {
                     pathLength[stack[i].x + 1][stack[i].y] = pathLength[stack[i].x][stack[i].y] + 1;
-                    newStack.push(this.cells[x + 1][y]);
+                    newStack.push(this.cells[stack[i].x + 1][stack[i].y]);
                 }
                 if (maps[stack[i].x - 1][stack[i].y] === 0 && pathLength[stack[i].x - 1][stack[i].y] === 0) {
                     pathLength[stack[i].x - 1][stack[i].y] = pathLength[stack[i].x][stack[i].y] + 1;
-                    newStack.push(this.cells[x - 1][y]);
+                    newStack.push(this.cells[stack[i].x - 1][stack[i].y]);
                 }
                 if (maps[stack[i].x][stack[i].y + 1] === 0 && pathLength[stack[i].x][stack[i].y + 1] === 0) {
                     pathLength[stack[i].x][stack[i].y + 1] = pathLength[stack[i].x][stack[i].y] + 1;
-                    newStack.push(this.cells[x][y + 1]);
+                    newStack.push(this.cells[stack[i].x][stack[i].y + 1]);
                 }
                 if (maps[stack[i].x][stack[i].y - 1] === 0 && pathLength[stack[i].x][stack[i].y - 1] === 0) {
                     pathLength[stack[i].x][stack[i].y - 1] = pathLength[stack[i].x][stack[i].y] + 1;
-                    newStack.push(this.cells[x][y - 1]);
+                    newStack.push(this.cells[stack[i].x][stack[i].y - 1]);
                 }
             }
             stack = newStack;
         }
         let path = [];
-
+        console.log(pathLength);
         if (pathLength[to.x][to.y] > 0) {
             let current = to;
-            path.push(current);
+            path.push(this.cells[current.x][current.y]);
             while (current.x !== from.x || current.y !== from.y) {
-                if (path[current.x][current.y] - 1 === path[current.x + 1][current.y]) {
+                if (pathLength[current.x][current.y] - 1 === pathLength[current.x + 1][current.y]) {
                     current = this.cells[current.x + 1][current.y];
-                } else if (path[current.x][current.y] - 1 === path[current.x - 1][current.y]) {
+                } else if (pathLength[current.x][current.y] - 1 === pathLength[current.x - 1][current.y]) {
                     current = this.cells[current.x - 1][current.y];
-                } else if (path[current.x][current.y] - 1 === path[current.x][current.y + 1]) {
+                } else if (pathLength[current.x][current.y] - 1 === pathLength[current.x][current.y + 1]) {
                     current = this.cells[current.x][current.y + 1];
-                } else if (path[current.x][current.y] - 1 === path[current.x][current.y - 1]) {
+                } else if (pathLength[current.x][current.y] - 1 === pathLength[current.x][current.y - 1]) {
                     current = this.cells[current.x][current.y - 1];
                 }
+                console.log('step',current.toPlain());
                 path.unshift(current);
             }
         }

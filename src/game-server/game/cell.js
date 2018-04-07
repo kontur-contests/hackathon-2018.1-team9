@@ -6,6 +6,12 @@ class Cell {
 
         this.ball = null;
     }
+    toPlain(){
+        return {
+            x:this.x,
+            y:this.y,
+        }
+    }
 }
 
 module.exports = {Cell};

@@ -30,8 +30,9 @@ const wss = new WebSocket.Server({
     }
 });
 
-wss.on('connection',  (ws, req) => {
-    cookieParser(req, null, () => {});
+wss.on('connection', (ws, req) => {
+    cookieParser(req, null, () => {
+    });
 
     const playerUid = req.cookies.playerUid;
 
@@ -45,7 +46,21 @@ wss.on('connection',  (ws, req) => {
 
     ws.on('message', (message) => {
         console.log('received: %s', message);
+        let data = JSON.parse(message);
+        if (data['action'] === 'try-move') {
+            ws.send(JSON.stringify(tryMove(data['data']['from'], data['data']['to'])));
+        }
     });
+
+    function tryMove(from, to) {
+        let data = players[playerUid].game.fields[0].findWay(from, to);
+        let plainData = [];
+        for (let i = 0; i < data.length; i++) {
+            plainData.push(data[i].toPlain());
+        }
+        console.log(plainData);
+        return plainData;
+    }
 
     ws.on('close', () => {
         if (players[playerUid].sockets.includes(ws)) {
