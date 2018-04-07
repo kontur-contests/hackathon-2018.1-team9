@@ -228,9 +228,11 @@ class Field {
      * @return {{x: number, y: number}}
      */
     placeDrop(ball, number) {
-        let normalNumber = number % this.freeCells;
+        let normalNumber = number % this.freeCells + 1;
         let x = 0;
         let y = 0;
+
+        console.log("Drop", normalNumber, this.freeCells);
 
         for (x = 0; x < this.width && normalNumber; x++) {
             for (y = 0; y < this.height && normalNumber; y++) {
