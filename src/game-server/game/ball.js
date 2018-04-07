@@ -29,7 +29,7 @@ class Ball {
     }
 }
 
-modules.exports = {
+module.exports = {
     Ball,
     COLORS
 };

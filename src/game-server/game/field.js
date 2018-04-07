@@ -1,4 +1,4 @@
-const Cell = require('./cell.js');
+const {Cell} = require('./cell.js');
 
 class Field {
     constructor(width = 9, height = 9) {
@@ -222,16 +222,17 @@ class Field {
             for (y = 0; y < this.height && normalNumber; y++) {
                 if (!this.cells[x][y].ball) {
                     normalNumber -= 1;
+                    if (normalNumber === 0) {
+                        this.cells[x][y].ball = ball;
+                    }
                 }
             }
         }
-
-        this.cells[x][y].ball = ball;
 
         return {x, y};
     }
 }
 
-modules.exports = {
+module.exports = {
     Field
 };

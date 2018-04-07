@@ -42,3 +42,18 @@
 
 
 })();
+
+
+(function(){
+    console.log(navigator.cookies);
+
+    const ws = new WebSocket("ws://localhost:8081/ws/");
+
+    ws.addEventListener('open', () => {
+       ws.addEventListener('message', (data) => {
+           console.log("==>", data);
+       });
+
+       ws.send("Message");
+    });
+})();
