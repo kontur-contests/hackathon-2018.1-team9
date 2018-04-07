@@ -1,5 +1,6 @@
 const sizeCell = 60;
-export default class Field {
+
+export default class Field extends PIXI.utils.EventEmitter {
     constructor(x, y, scale) {
 
         this.container = new PIXI.Container();
@@ -10,6 +11,18 @@ export default class Field {
 
         this.container.x = x;
         this.container.y = y;
+    }
+
+    renderField(fieldModel) {
+        this.container.removeChildren(1, this.container.children.length - 1);
+
+        fieldModel.cells.forEach((row, x) => {
+           row.forEach((cell, y) => {
+               if (cell) {
+                   const ball = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/ball/ball.jpeg'));
+               }
+           })
+        });
     }
 
     getContainer() {
