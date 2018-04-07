@@ -16,6 +16,10 @@ export default class Ball{
 
         this.container = new PIXI.Container();
 
+        if (!COLOR_MAP[color]) {
+            console.error(new Error("Missing sprite for color "+color));
+        }
+
         const ball = new PIXI.Sprite(new PIXI.Texture.fromFrame(COLOR_MAP[color]));
         ball.pivot.x = Math.floor(ball.width / 2);
         ball.pivot.y = Math.floor(ball.height / 2) + 2;

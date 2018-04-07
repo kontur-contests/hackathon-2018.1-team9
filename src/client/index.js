@@ -22,15 +22,3 @@ app.ticker.add((delta) => {
 
 });
 
-
-console.log(navigator.cookies);
-const host = location.host;
-const ws = new WebSocket("ws://"+host+"/ws/");
-
-ws.addEventListener('open', () => {
-   ws.addEventListener('message', (data) => {
-       console.log("==>", data);
-   });
-
-   ws.send("Message");
-});

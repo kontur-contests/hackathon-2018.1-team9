@@ -1,4 +1,5 @@
 import GameScene from './game.js';
+import GameModel from '../model/game.js';
 
 export default class LoaderScene {
     constructor(app) {
@@ -27,7 +28,7 @@ export default class LoaderScene {
     update(delta) {
         if (this.done) {
             console.log("Game scene");
-            return new GameScene(this.app);
+            return new GameScene(this.app, new GameModel());
         }
 
         return this;

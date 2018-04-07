@@ -9,7 +9,7 @@
     "private": null,
     "scripts": {
         "build-client": "webpack --config webpack.config.js",
-        "build-client-watch": "webpack --config webpack.config.js --watch",
+        "build-client-watch": " webpack --config webpack.config.js --watch --mode=development -d",
         "start-server": "node ./bin/www",
         "start-game-server": "node ./src/game-server/index.js"
     },
