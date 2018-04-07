@@ -168,14 +168,16 @@ class Game {
                             cell: data.cell
                         });
                         break;
-                    case "enable-ball-interactive":
-                        data.player.ballInteractive = true;
-                        const playerIndex = this.players.indexOf(data.player);
+                    case "enable-ball-interactive": {
+                            data.player.ballInteractive = true;
+                            const playerIndex = this.players.indexOf(data.player);
 
-                        this.playersTickChanges[playerIndex].push("enable-ball-interactive");
+                            this.playersTickChanges[playerIndex].push("enable-ball-interactive");
+                        }
                         break;
                     case "check-line":
                         const field = data.field;
+                        const playerIndex = this.fields.indexOf(field);
                         let {point, cells} = field.getLines();
                         let cellsPlain = [];
                         if (cells.length > 0) {
@@ -184,16 +186,29 @@ class Game {
                                 cellsPlain.push(cells[i].toPlain());
                                 cells[i].ball = null;
                             }
-                            this.playersTickChanges[0].push({
+                            this.playersTickChanges[playerIndex].push({
                                 action: "delete-ball",
                                 onMyField: true,
                                 cells: cellsPlain,
                             });
-                            this.playersTickChanges[0].push({
+                            this.playersTickChanges[playerIndex].push({
                                 action: "add-points",
                                 onMyField: true,
                                 pointAdd: point,
-                                pointTotal: this.points[0]
+                                pointTotal: this.points[playerIndex]
+                            });
+                        } else {
+                            const drops = this.doDropToField(field);
+
+                            this.playersTickChanges[playerIndex].push({
+                                action: "spawn-balls",
+                                onMyField: true,
+                                drops: drops.map(drop => {
+                                   return {
+                                       position: drop.position,
+                                       color: drop.ball.color
+                                   }
+                                })
                             });
                         }
 
