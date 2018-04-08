@@ -21,7 +21,7 @@ class Field {
     }
 
     findWay(from, to) {
-        if (this.cells[from.x][from.y].snow) {
+        if (this.cells[from.x][from.y].ball.snow) {
             return [];
         }
         let d = 0;

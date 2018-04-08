@@ -351,10 +351,10 @@ class Game {
                                             bonus: cells[i].ball.bonus,
                                             cells: cells[i].toPlain()
                                         });
-                                        cells[i].ball = null;
-                                        field.freeCells += 1;
-                                        cellsPlain.push(cells[i].toPlain());
                                     }
+                                    cells[i].ball = null;
+                                    field.freeCells += 1;
+                                    cellsPlain.push(cells[i].toPlain());
                                 }
                             }
 

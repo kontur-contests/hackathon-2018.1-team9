@@ -150,10 +150,8 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
     }
 
     clickMyField(x, y) {
-        console.log("Click field", x, y);
-        console.log(this.myFieldInteractive);
         if (this.myFieldInteractive) {
-            if (this.myFieldModel.cells[x][y]) {
+            if (this.myFieldModel.cells[x][y] && !this.myFieldModel.cells[x][y].snow) {
                 if (this.selectedCell) {
                     this.emit('deselect-cell', this.selectedCell);
                 }
