@@ -86,7 +86,7 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                     field.cells[x][y] = {color: drop.color};
 
                     if (change.onMyField) {
-                        this.emit('spawn-my-ball', {x, y, color: drop.color});
+                        this.emit('spawn-my-ball', {x, y, color: drop.color, bonus: drop.haveBonus});
                     } else {
                         this.emit('spawn-enemy-ball', {x, y, color: drop.color});
                     }

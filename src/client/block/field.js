@@ -57,7 +57,7 @@ export default class Field extends PIXI.utils.EventEmitter {
         fieldModel.cells.forEach((row, x) => {
            row.forEach((cell, y) => {
                if (cell) {
-                   const ball = new Ball(cell.color);
+                   const ball = new Ball(cell.color, cell.haveBonus);
                    const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
                    if (!this.balls[x]) {
@@ -74,9 +74,9 @@ export default class Field extends PIXI.utils.EventEmitter {
         });
     }
 
-    createBall(x, y, color) {
+    createBall(x, y, color, haveBonus) {
         console.log(x, y, color);
-        const ball = new Ball(color);
+        const ball = new Ball(color, haveBonus);
         const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
         if (!this.balls[x]) {

@@ -24,6 +24,7 @@ class Game {
 
         this.dropColors = [];
         this.dropPositions = [];
+        this.dropPowerUps = [];
 
         this.tickNumber = 0;
 
@@ -31,6 +32,10 @@ class Game {
         this.lastTickTime = null;
 
         this.players = [];
+
+        this.playersBonuses = [
+            [], []
+        ];
 
         this.playersTickChanges = [
             [], []
@@ -55,14 +60,14 @@ class Game {
                     width: this.fields[playerIndex].width,
                     height: this.fields[playerIndex].height,
                     field: this.fields[playerIndex].cells.map((x) => x.map(
-                        (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+                        (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
                     ))
                 },
                 otherFieldData: {
                     width: this.fields[otherPlayerIndex].width,
                     height: this.fields[otherPlayerIndex].height,
                     field: this.fields[otherPlayerIndex].cells.map((x) => x.map(
-                        (cell) => cell.ball && {color: cell.ball.color, type: "ball"}
+                        (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
                     ))
                 }
             };
@@ -222,6 +227,14 @@ class Game {
                             this.points[0] += point;
                             for (let i = 0; i < cells.length; i++) {
                                 cellsPlain.push(cells[i].toPlain());
+                                if (cells[i].ball.bonus) {
+                                    this.playersBonuses[this.fields.indexOf(field)].push(cells[i].ball.bonus);
+                                    this.playersTickChanges[this.fields.indexOf(field)].push({
+                                        action: "get-bonus",
+                                        bonus: cells[i].ball.bonus,
+                                        cells: cells[i].toPlain()
+                                    });
+                                }
                                 cells[i].ball = null;
                                 field.freeCells += 1;
                             }
@@ -250,7 +263,8 @@ class Game {
                                     drops: drops.map(drop => {
                                         return {
                                             position: drop.position,
-                                            color: drop.ball.color
+                                            color: drop.ball.color,
+                                            haveBonus: Boolean(drop.ball.bonus)
                                         }
                                     })
                                 });
@@ -285,6 +299,24 @@ class Game {
         return this.dropColors[dropNumber];
     }
 
+    getDropPowerUps(dropNumber) {
+        while (this.dropPowerUps.length < dropNumber + 1) {
+            const drop = [];
+
+            for (let i = 0; i < this.dropSize; i++) {
+                if (Math.random() <= 0.3) {
+                    drop.push("BLACK_BALL");
+                } else {
+                    drop.push(null);
+                }
+            }
+
+            this.dropPowerUps.push(drop);
+        }
+
+        return this.dropPowerUps[dropNumber];
+    }
+
     getDropPositions(dropNumber) {
         while (this.dropPositions.length < dropNumber + 1) {
             const drop = [];
@@ -307,11 +339,13 @@ class Game {
     doDropToField(field) {
         const dropColors = this.getDropColors(field.nextDrop);
         const dropPositions = this.getDropPositions(field.nextDrop);
+        const dropPowerUps = this.getDropPowerUps(field.nextDrop);
 
         const dropResult = [];
 
         for (let p = 0; p < dropPositions.length; p++) {
             const ball = new Ball(dropColors[p]);
+            ball.bonus = dropPowerUps[p];
 
             const {x, y} = field.placeDrop(ball, dropPositions[p]);
 

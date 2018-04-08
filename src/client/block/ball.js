@@ -24,8 +24,9 @@ const ANIMATION_MAP = {
 
 
 export default class Ball{
-    constructor(color) {
+    constructor(color, haveBonus) {
         this.color = color;
+        this.haveBonus = haveBonus;
 
         this.container = new PIXI.Container();
 
@@ -45,8 +46,14 @@ export default class Ball{
         this.container.addChild(ball);
         this.container.addChild(animation);
 
-        console.log("ball", ball);
-        console.log("animation", animation);
+        if (haveBonus) {
+            const bonus = this.bonus = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/star'));
+            bonus.pivot.x = Math.floor(bonus.width / 2);
+            bonus.pivot.y = Math.floor(bonus.height / 2) + 2;
+
+            this.container.addChild(bonus);
+        }
+
     }
 
     startSelectedAnimation() {
