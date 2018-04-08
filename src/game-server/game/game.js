@@ -41,6 +41,8 @@ class Game {
             [], []
         ];
 
+        this.changesHistory = [];
+
         this.commonTickActions = {};
     }
 
@@ -113,17 +115,38 @@ class Game {
         this.processPlayerActions(this.players[1]);
         this.processCommonAction();
 
-        const changes1 = JSON.stringify({tick: this.tickNumber, changes: this.playersTickChanges[0]});
+        const changes1 = JSON.stringify([
+            ...this.changesHistory.map((pack, idx, arr) => {
+                return {
+                    tick: this.tickNumber - arr.length + idx,
+                    changes: pack[0]
+                }
+            }),
+            {tick: this.tickNumber, changes: this.playersTickChanges[0]}
+        ]);
 
         this.players[0].sockets.forEach(socket => {
             socket.send(changes1);
         });
 
-        const changes2 = JSON.stringify({tick: this.tickNumber, changes: this.playersTickChanges[1]});
+        const changes2 = JSON.stringify([
+            ...this.changesHistory.map((pack, idx, arr) => {
+                return {
+                    tick: this.tickNumber - arr.length + idx,
+                    changes: pack[1]
+                }
+            }),
+            {tick: this.tickNumber, changes: this.playersTickChanges[1]}
+        ]);
 
         this.players[1].sockets.forEach(socket => {
             socket.send(changes2);
         });
+
+        this.changesHistory.push(this.playersTickChanges);
+        if (this.changesHistory.length > 15) {
+            this.changesHistory.shift();
+        }
 
         this.playersTickChanges = [
             [], []

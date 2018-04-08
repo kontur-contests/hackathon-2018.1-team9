@@ -19,8 +19,12 @@ export default class GameModel extends PIXI.utils.EventEmitter {
                     this.emit(data.action, data.data);
                 }
 
-                if (data.tick) {
-                    this.processTick(data);
+                if (data instanceof Array) {
+                    data.forEach((dataPart) => {
+                        if (dataPart.tick > this.tickNumber) {
+                            this.processTick(dataPart);
+                        }
+                    });
                 }
             });
         });
