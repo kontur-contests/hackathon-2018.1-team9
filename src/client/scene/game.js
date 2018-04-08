@@ -229,7 +229,10 @@ export default class GameScene {
             bonus.getContainer().y = Math.floor(idx / 4) * 50;
 
             this.bonusContainer.addChild(bonus.getContainer());
-        })
+        });
+        this.mainPoints.text = gameData.myFieldData.points;
+        this.secondPoints.text = gameData.otherFieldData.points;
+
 
     }
 

@@ -61,14 +61,18 @@ wss.on('connection', (ws, req) => {
                 height: playerGame.fields[playerIndex].height,
                 field: playerGame.fields[playerIndex].cells.map((x) => x.map(
                     (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
-                ))
+                )),
+                points: playerGame.points[0],
+
             },
             otherFieldData: {
                 width: playerGame.fields[otherPlayerIndex].width,
                 height: playerGame.fields[otherPlayerIndex].height,
                 field: playerGame.fields[otherPlayerIndex].cells.map((x) => x.map(
                     (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
-                ))
+                )),
+                points: playerGame.points[1],
+
             }
         };
 

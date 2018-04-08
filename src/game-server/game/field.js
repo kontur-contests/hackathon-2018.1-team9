@@ -21,6 +21,9 @@ class Field {
     }
 
     findWay(from, to) {
+        if (this.cells[from.x][from.y].snow) {
+            return [];
+        }
         let d = 0;
         let maps = [];
         let pathLength = [];
