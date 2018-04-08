@@ -26,6 +26,7 @@ export default class Ball{
     constructor(color, haveBonus) {
         this.color = color;
         this.haveBonus = haveBonus;
+        this.snow = false;
 
         this.container = new PIXI.Container();
 

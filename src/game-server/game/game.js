@@ -61,7 +61,11 @@ class Game {
                     width: this.fields[playerIndex].width,
                     height: this.fields[playerIndex].height,
                     field: this.fields[playerIndex].cells.map((x) => x.map(
-                        (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
+                        (cell) => cell.ball && {
+                            color: cell.ball.color,
+                            type: "ball",
+                            haveBonus: Boolean(cell.ball.bonus)
+                        }
                     )),
                     points: this.points[0],
                 },
@@ -69,7 +73,11 @@ class Game {
                     width: this.fields[otherPlayerIndex].width,
                     height: this.fields[otherPlayerIndex].height,
                     field: this.fields[otherPlayerIndex].cells.map((x) => x.map(
-                        (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
+                        (cell) => cell.ball && {
+                            color: cell.ball.color,
+                            type: "ball",
+                            haveBonus: Boolean(cell.ball.bonus)
+                        }
                     )),
                     points: this.points[1],
                 }
@@ -194,13 +202,13 @@ class Game {
 
     processBonus(player, bonusType) {
         const currentPlayerIndex = this.players.indexOf(player);
-        const otherPlayerIndex = currentPlayerIndex === 1 ? 0: 1;
+        const otherPlayerIndex = currentPlayerIndex === 1 ? 0 : 1;
 
         switch (bonusType) {
             case "BLACK_BALL":
                 this.commonTickActions[this.tickNumber + 1] = this.commonTickActions[this.tickNumber + 1] || [];
                 this.commonTickActions[this.tickNumber + 1].push({
-                    action:'black-drop',
+                    action: 'black-drop',
                     source: currentPlayerIndex,
                     target: otherPlayerIndex
                 });
@@ -268,31 +276,37 @@ class Game {
                         });
                         break;
                     case "enable-ball-interactive": {
-                            data.player.ballInteractive = true;
-                            const playerIndex = this.players.indexOf(data.player);
+                        data.player.ballInteractive = true;
+                        const playerIndex = this.players.indexOf(data.player);
 
-                            this.playersTickChanges[playerIndex].push("enable-ball-interactive");
-                        }
+                        this.playersTickChanges[playerIndex].push("enable-ball-interactive");
+                    }
                         break;
                     case "check-line":
                         const field = data.field;
                         let {points, cells} = field.getLines();
-                        console.log('points',points);
+                        console.log('points', points);
                         let cellsPlain = [];
+                        let unfreeze = [];
                         if (cells.length > 0) {
                             this.points[0] += points;
                             for (let i = 0; i < cells.length; i++) {
-                                cellsPlain.push(cells[i].toPlain());
-                                if (cells[i].ball.bonus) {
-                                    this.playersBonuses[this.fields.indexOf(field)].push(cells[i].ball.bonus);
-                                    this.playersTickChanges[this.fields.indexOf(field)].push({
-                                        action: "get-bonus",
-                                        bonus: cells[i].ball.bonus,
-                                        cells: cells[i].toPlain()
-                                    });
+                                if (cells[i].ball && cells[i].ball.snow) {
+                                    cells[i].ball.snow = false;
+                                    unfreeze.push(cells[i].toPlain());
+                                } else {
+                                    if (cells[i].ball.bonus) {
+                                        this.playersBonuses[this.fields.indexOf(field)].push(cells[i].ball.bonus);
+                                        this.playersTickChanges[this.fields.indexOf(field)].push({
+                                            action: "get-bonus",
+                                            bonus: cells[i].ball.bonus,
+                                            cells: cells[i].toPlain()
+                                        });
+                                        cells[i].ball = null;
+                                        field.freeCells += 1;
+                                        cellsPlain.push(cells[i].toPlain());
+                                    }
                                 }
-                                cells[i].ball = null;
-                                field.freeCells += 1;
                             }
 
 
@@ -301,6 +315,11 @@ class Game {
                                     action: "delete-ball",
                                     onMyField: data.field === this.fields[playerIndex],
                                     cells: cellsPlain,
+                                });
+                                this.playersTickChanges[playerIndex].push({
+                                    action: "unfreeze-ball",
+                                    onMyField: data.field === this.fields[playerIndex],
+                                    cells: unfreeze,
                                 });
                                 this.playersTickChanges[playerIndex].push({
                                     action: "add-points",
@@ -362,7 +381,7 @@ class Game {
                     //if (Math.random() > 0.5) {
                     //    drop.push("FROZEN");
                     //} else {
-                        drop.push("BLACK_BALL");
+                    drop.push("BLACK_BALL");
                     //}
                 } else {
                     drop.push(null);
