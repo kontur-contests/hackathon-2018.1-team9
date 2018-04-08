@@ -357,11 +357,11 @@ class Game {
 
             for (let i = 0; i < this.dropSize; i++) {
                 if (Math.random() <= 0.3) {
-                    if (Math.random() > 0.5) {
-                        drop.push("FROZEN");
-                    } else {
+                    //if (Math.random() > 0.5) {
+                    //    drop.push("FROZEN");
+                    //} else {
                         drop.push("BLACK_MAIL");
-                    }
+                    //}
                 } else {
                     drop.push(null);
                 }
