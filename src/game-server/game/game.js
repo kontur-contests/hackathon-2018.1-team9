@@ -56,6 +56,7 @@ class Game {
             const otherPlayerIndex = playerIndex === 0 ? 1 : 0;
 
             const gameData = {
+                myBonuses: this.playersBonuses[playerIndex],
                 myFieldData: {
                     width: this.fields[playerIndex].width,
                     height: this.fields[playerIndex].height,

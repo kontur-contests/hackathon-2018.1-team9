@@ -1,5 +1,6 @@
 import Field from '../block/field.js';
 import FieldModel from '../model/field.js';
+import Bonus from '../block/bonus.js';
 
 export default class GameScene {
     constructor(app, game) {
@@ -9,19 +10,25 @@ export default class GameScene {
         this.stage = new PIXI.Container();
 
         this.mainField = new Field(30, 180, 1);
-        this.secondField = new Field(700, 180, 0.66);
+        this.secondField = new Field(800, 180, 0.66);
 
         this.lastTickTime = null;
 
         this.animationTweens = [];
+        this.bonuses = [];
 
         const background = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/background'));
         background.pivot.x = Math.floor(background.width / 2);
         background.x = Math.floor(app.view.width / 2);
         this.stage.addChild(background);
 
+        this.bonusContainer = new PIXI.Container();
+        this.bonusContainer.x = 830;
+        this.bonusContainer.y = 600;
+
         this.stage.addChild(this.mainField.getContainer());
         this.stage.addChild(this.secondField.getContainer());
+        this.stage.addChild(this.bonusContainer);
 
         const start = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/start'));
         start.pivot.x = Math.floor(start.width / 2);
@@ -126,6 +133,22 @@ export default class GameScene {
 
         this.game.setEnemyField(enemyFieldModel);
         this.secondField.renderField(enemyFieldModel);
+
+        if (this.bonusContainer.children.length) {
+            this.bonusContainer.removeChildren(0, this.bonusContainer.children.length - 1);
+        }
+        this.bonuses = [];
+
+        gameData.myBonuses.forEach((bonusType, idx) => {
+            const bonus = new Bonus(bonusType);
+            this.bonuses.push(bonus);
+
+            bonus.getContainer().x = idx % 4 * 50;
+            bonus.getContainer().y = Math.floor(idx / 4) * 50;
+
+            this.bonusContainer.addChild(bonus.getContainer());
+            console.log("bonus", bonus);
+        })
 
     }
 

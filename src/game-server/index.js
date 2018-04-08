@@ -74,6 +74,7 @@ wss.on('connection', (ws, req) => {
         const otherPlayerIndex = playerIndex === 0 ? 1 : 0 ;
 
         const gameData = {
+            myBonuses: playerGame.playersBonuses[playerIndex],
             myFieldData: {
                 width: playerGame.fields[playerIndex].width,
                 height: playerGame.fields[playerIndex].height,
