@@ -100,8 +100,8 @@ export default class GameScene {
 
             const idx = this.bonuses.length - 1;
 
-            bonus.getContainer().x = idx % 4 * 50;
-            bonus.getContainer().y = Math.floor(idx / 4) * 50;
+            bonus.getContainer().x = idx % 6 * 50;
+            bonus.getContainer().y = Math.floor(idx / 6) * 50;
 
             this.bonusContainer.addChild(bonus.getContainer());
 
@@ -239,8 +239,8 @@ export default class GameScene {
             const bonus = new Bonus(this.game, bonusType);
             this.bonuses.push(bonus);
 
-            bonus.getContainer().x = idx % 4 * 50;
-            bonus.getContainer().y = Math.floor(idx / 4) * 50;
+            bonus.getContainer().x = idx % 6 * 50;
+            bonus.getContainer().y = Math.floor(idx / 6) * 50;
 
             this.bonusContainer.addChild(bonus.getContainer());
         });
