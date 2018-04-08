@@ -450,7 +450,7 @@ class Game {
 
             for (let i = 0; i < this.dropSize; i++) {
                 if (Math.random() <= 0.3) {
-                    if (Math.random() > 0.45) {
+                    if (Math.random() >= 0.5) {
                        drop.push("FROZEN");
                     } else {
                         drop.push("BLACK_BALL");
