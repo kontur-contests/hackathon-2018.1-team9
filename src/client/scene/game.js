@@ -95,6 +95,41 @@ export default class GameScene {
             }
         });
 
+        game.on('get-bonus', (data) => {
+            const bonus = new Bonus(this.game, data.bonus);
+            this.bonuses.push(bonus);
+
+            const idx = this.bonuses.length - 1;
+
+            bonus.getContainer().x = idx % 4 * 50;
+            bonus.getContainer().y = Math.floor(idx / 4) * 50;
+
+            this.bonusContainer.addChild(bonus.getContainer());
+
+        });
+
+        game.on('remove-bonus', (data) => {
+            let done = false;
+            const newBonusList = this.bonuses.filter(bonus => {
+                if (done) {
+                    return true;
+                }
+
+                if (bonus.type === data) {
+                    bonus.remove();
+                    done = true;
+                    return false;
+                }
+            });
+
+            this.bonuses = newBonusList;
+
+            this.bonuses.forEach((bonus, idx) => {
+                bonus.getContainer().x = idx % 4 * 50;
+                bonus.getContainer().y = Math.floor(idx / 4) * 50;
+            });
+        });
+
         game.on('stop-my-ball', ({cell: {x, y}}) => {
             this.mainField.balls[x][y].stopSelectedAnimation();
         });
@@ -175,14 +210,13 @@ export default class GameScene {
         this.bonuses = [];
 
         gameData.myBonuses.forEach((bonusType, idx) => {
-            const bonus = new Bonus(bonusType);
+            const bonus = new Bonus(this.game, bonusType);
             this.bonuses.push(bonus);
 
             bonus.getContainer().x = idx % 4 * 50;
             bonus.getContainer().y = Math.floor(idx / 4) * 50;
 
             this.bonusContainer.addChild(bonus.getContainer());
-            console.log("bonus", bonus);
         })
 
     }

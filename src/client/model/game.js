@@ -50,6 +50,14 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
         });
     }
 
+    activateBonus(bonus) {
+        this.ws.send(JSON.stringify({
+            action: "activate-bonus",
+            bonus: bonus.type,
+            tick: this.tickNumber
+        }));
+    }
+
     processChange(change) {
         const field = change.onMyField ? this.myFieldModel : this.enemyFieldModel;
         switch (change.action) {
@@ -108,6 +116,15 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 } else {
                     this.emit('add-enemy-points', change);
                 }
+                break;
+            case "get-bonus":
+                this.emit('get-bonus', change);
+
+                break;
+
+            case "remove-bonus":
+                this.emit('remove-bonus', change.bonus);
+
                 break;
         }
     }

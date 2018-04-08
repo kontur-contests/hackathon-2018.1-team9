@@ -176,15 +176,67 @@ class Game {
                     }
                 }
                 break;
+
+            case 'activate-bonus':
+                console.log(player.calledAction);
+                const bonusType = player.calledAction.bonus;
+                if (this.playersBonuses[playerIndex].includes(bonusType)) {
+                    this.playersBonuses[playerIndex].splice(this.playersBonuses[playerIndex].indexOf(bonusType), 1);
+                    this.processBonus(player, bonusType);
+                }
+                break;
         }
 
         player.calledAction = null;
+    }
+
+    processBonus(player, bonusType) {
+        const currentPlayerIndex = this.players.indexOf(player);
+        const otherPlayerIndex = currentPlayerIndex === 1 ? 0: 1;
+
+        switch (bonusType) {
+            case "BLACK_BALL":
+                this.commonTickActions[this.tickNumber + 1] = this.commonTickActions[this.tickNumber + 1] || [];
+                this.commonTickActions[this.tickNumber + 1].push({
+                    action:'black-drop',
+                    source: currentPlayerIndex,
+                    target: otherPlayerIndex
+                });
+
+
+                break;
+        }
     }
 
     processCommonAction() {
         if (this.commonTickActions[this.tickNumber]) {
             this.commonTickActions[this.tickNumber].forEach((data) => {
                 switch (data.action) {
+                    case 'black-drop':
+                        const blackBall = new Ball(COLORS.BLACK);
+
+                        const blackBoxPos = this.fields[data.target].placeDrop(
+                            blackBall,
+                            Math.floor(Math.random() * this.fieldSize * this.fieldSize)
+                        );
+
+                        this.players.forEach((player, playerIndex) => {
+                            this.playersTickChanges[playerIndex].push({
+                                action: "spawn-balls",
+                                onMyField: data.target === playerIndex,
+                                drops: [{
+                                    position: blackBoxPos,
+                                    color: blackBall.color,
+                                    haveBonus: Boolean(blackBall.bonus)
+                                }]
+                            });
+                        });
+
+                        this.playersTickChanges[data.source].push({
+                            action: "remove-bonus",
+                            bonus: "BLACK_BALL"
+                        });
+                        break;
                     case "move-ball":
                         const {x, y} = data.from;
                         const {x: x1, y: y1} = data.to;

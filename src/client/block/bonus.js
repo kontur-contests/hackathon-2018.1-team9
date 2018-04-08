@@ -7,7 +7,8 @@ const CONFIG = {
 
 
 export default class Bonus {
-    constructor(type) {
+    constructor(game, type) {
+        this.game = game;
         this.type = type;
 
         this.container = new PIXI.Container();
@@ -24,9 +25,18 @@ export default class Bonus {
         bonusIcon.scale.y = CONFIG[type].scale;
 
         this.container.addChild(bonusIcon);
+
+        this.container.interactive = true;
+        this.container.on('pointerdown', () => {
+            this.game.activateBonus(this);
+        });
     }
 
     getContainer() {
         return this.container;
+    }
+
+    remove() {
+        this.container.parent.removeChildAt(this.container.parent.getChildIndex(this.container))
     }
 }

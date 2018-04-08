@@ -55,7 +55,7 @@ wss.on('connection', (ws, req) => {
     ws.on('message', (message) => {
         console.log('received: %s', message);
         let data = JSON.parse(message);
-        if (data['action'] === 'try-move') {
+        if (data.action) {
             players[playerUid].calledAction = data;
         }
     });
