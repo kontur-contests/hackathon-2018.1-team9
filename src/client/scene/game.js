@@ -119,6 +119,8 @@ export default class GameScene {
                     done = true;
                     return false;
                 }
+
+                return true;
             });
 
             this.bonuses = newBonusList;
