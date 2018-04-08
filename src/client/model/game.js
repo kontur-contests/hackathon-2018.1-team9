@@ -1,5 +1,4 @@
-
-export default class GameModel  extends PIXI.utils.EventEmitter {
+export default class GameModel extends PIXI.utils.EventEmitter {
     constructor() {
         super();
 
@@ -76,14 +75,14 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 break;
             case "delete-ball":
                 console.log('delete-ball');
-                console.log('myField',change.onMyField);
+                console.log('myField', change.onMyField);
                 if (change.onMyField) {
                     console.log(change.cells);
                     for (let i = 0; i < change.cells.length; i++) {
                         field.cells[change.cells[i].x][change.cells[i].y] = null;
                     }
                     this.emit('delete-my-ball', {cells: change.cells});
-                } else{
+                } else {
                     this.emit('delete-enemy-ball', {cells: change.cells});
                 }
                 break;
@@ -101,6 +100,11 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 });
                 break;
 
+            case "end-games":
+                console.log('to model',change);
+                this.emit('end-games', change);
+                break;
+
             case "stop-ball-animation":
                 if (change.onMyField) {
                     this.emit('stop-my-ball', {cell: change.cell});
@@ -112,7 +116,7 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
             case "add-points":
                 if (change.onMyField) {
                     console.log('add model');
-                    this.emit('add-my-points',change);
+                    this.emit('add-my-points', change);
                 } else {
                     this.emit('add-enemy-points', change);
                 }

@@ -242,7 +242,7 @@ class Field {
      * @return {{x: number, y: number}}
      */
     placeDrop(ball, number) {
-        let normalNumber = number % this.freeCells + 1;
+        let normalNumber = number % (this.freeCells)+1;
         let x = 0;
         let y = 0;
 

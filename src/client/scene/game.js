@@ -1,12 +1,14 @@
 import Field from '../block/field.js';
 import FieldModel from '../model/field.js';
 import Bonus from '../block/bonus.js';
+import ResultScene from './result.js';
 
 export default class GameScene {
     constructor(app, game) {
         this.app = app;
         this.game = game;
-
+        this.endGame = false;
+        this.resultGame = {};
         this.stage = new PIXI.Container();
 
         this.mainField = new Field(30, 180, 1);
@@ -162,6 +164,11 @@ export default class GameScene {
             }
         });
 
+        game.on('end-games', (result) => {
+            this.endGame = true;
+            this.resultGame = result;
+        });
+
         game.on('stop-enemy-ball', ({cell: {x, y}}) => {
             this.secondField.balls[x][y].stopSelectedAnimation();
         });
@@ -227,7 +234,10 @@ export default class GameScene {
     update(delta) {
 
         const time = (new Date()).getTime();
-
+        if (this.endGame) {
+            console.log("End game");
+            return new ResultScene(this.resultGame);
+        }
         this.animationTweens.forEach((tween) => {
             tween.advance(delta);
         });

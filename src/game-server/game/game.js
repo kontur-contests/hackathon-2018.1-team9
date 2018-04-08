@@ -331,19 +331,34 @@ class Game {
                         } else {
                             const drops = this.doDropToField(field);
 
-                            this.players.forEach((player, playerIndex) => {
-                                this.playersTickChanges[playerIndex].push({
-                                    action: "spawn-balls",
-                                    onMyField: data.field === this.fields[playerIndex],
-                                    drops: drops.map(drop => {
-                                        return {
-                                            position: drop.position,
-                                            color: drop.ball.color,
-                                            haveBonus: Boolean(drop.ball.bonus)
+                            if (drops.length === 0) {
+
+                                this.players.forEach((player, playerIndex) => {
+                                    this.playersTickChanges[playerIndex].push({
+                                        action: "end-games",
+                                        result: {
+                                            win: this.points[playerIndex] > this.points[(playerIndex + 1) % 2],
+                                            myPoints: this.points[playerIndex],
+                                            otherPoints: this.points[(playerIndex + 1) % 2],
                                         }
-                                    })
+                                    });
                                 });
-                            });
+
+                            } else {
+                                this.players.forEach((player, playerIndex) => {
+                                    this.playersTickChanges[playerIndex].push({
+                                        action: "spawn-balls",
+                                        onMyField: data.field === this.fields[playerIndex],
+                                        drops: drops.map(drop => {
+                                            return {
+                                                position: drop.position,
+                                                color: drop.ball.color,
+                                                haveBonus: Boolean(drop.ball.bonus)
+                                            }
+                                        })
+                                    });
+                                });
+                            }
                         }
 
                         break;
@@ -414,6 +429,9 @@ class Game {
      * @returns {Array}
      */
     doDropToField(field) {
+        if (field.freeCells <= this.dropSize) {
+            return [];
+        }
         const dropColors = this.getDropColors(field.nextDrop);
         const dropPositions = this.getDropPositions(field.nextDrop);
         const dropPowerUps = this.getDropPowerUps(field.nextDrop);
