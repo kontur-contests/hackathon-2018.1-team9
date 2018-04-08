@@ -61,7 +61,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/black"]
     },
     start_ball_black: {
@@ -149,7 +149,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/blue1", "sprites/balls/destroy/blue2", "sprites/balls/destroy/blue3", "sprites/balls/destroy/blue4",]
     },
     destroy_ball_green: {
@@ -157,7 +157,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/green1", "sprites/balls/destroy/green2", "sprites/balls/destroy/green3", "sprites/balls/destroy/green4",]
     },
     destroy_ball_lightblue: {
@@ -165,7 +165,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/lightblue1", "sprites/balls/destroy/lightblue2", "sprites/balls/destroy/lightblue3", "sprites/balls/destroy/lightblue4",]
     },
     destroy_ball_red: {
@@ -173,7 +173,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/red1", "sprites/balls/destroy/red2", "sprites/balls/destroy/red3", "sprites/balls/destroy/red4",]
     },
     destroy_ball_rose: {
@@ -181,7 +181,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/rose1", "sprites/balls/destroy/rose2", "sprites/balls/destroy/rose3", "sprites/balls/destroy/rose4",]
     },
     destroy_ball_yellow: {
@@ -189,7 +189,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/yellow1", "sprites/balls/destroy/yellow2", "sprites/balls/destroy/yellow3", "sprites/balls/destroy/yellow4",]
     },
     destroy_ball_rainbow: {
@@ -197,7 +197,7 @@ let blocks = {
             x: 30,
             y: 30
         },
-        frameRate: 0.28,
+        frameRate: 0.14,
         frames: ["sprites/balls/destroy/color1", "sprites/balls/destroy/color2", "sprites/balls/destroy/color3", "sprites/balls/destroy/color4",]
     },
 

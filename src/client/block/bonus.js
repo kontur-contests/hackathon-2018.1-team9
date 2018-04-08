@@ -2,6 +2,10 @@ const CONFIG = {
     "BLACK_BALL": {
         frame: "sprites/balls/black",
         scale: 0.5
+    },
+    "FROZEN": {
+        frame: "sprites/icons/snow",
+        scale: 1
     }
 };
 

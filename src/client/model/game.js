@@ -126,6 +126,18 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 this.emit('remove-bonus', change.bonus);
 
                 break;
+
+            case "snow":
+                change.balls.forEach(({x, y}) => {
+                    field.cells[x][y].snow = true;
+                });
+                if (change.onMyField) {
+                    this.emit('snow', change.balls);
+                } else {
+                    this.emit('enemy-snow', change.balls);
+                }
+
+                break;
         }
     }
 

@@ -55,6 +55,14 @@ export default class Ball{
         this.container.addChild(animationSpawn);
         this.container.addChild(animationDestroy);
 
+        this.snow = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/field/fon_led'));
+        this.snow.pivot.x = Math.floor(this.snow.width / 2);
+        this.snow.pivot.y = Math.floor(this.snow.height / 2);
+
+        this.container.addChild(this.snow);
+        this.snow.visible = false;
+
+
         if (haveBonus) {
             const bonus = this.bonus = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/star'));
             bonus.pivot.x = Math.floor(bonus.width / 2);
@@ -66,6 +74,14 @@ export default class Ball{
             this.container.addChild(bonus);
         }
 
+    }
+
+    addSnow(){
+        this.snow.visible = true;
+    }
+
+    removeSnow(){
+        this.snow.visible = false;
     }
 
     startSelectedAnimation() {
@@ -132,6 +148,6 @@ export default class Ball{
         setTimeout(() => {
             let index = this.container.parent.getChildIndex(this.container);
             this.container.parent.removeChildAt(index);
-        }, 50);
+        }, 100);
     }
 }
