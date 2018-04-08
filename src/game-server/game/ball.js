@@ -12,6 +12,8 @@ const COLORS = {
 class Ball {
     constructor(color) {
         this.color = color;
+
+        this.bonus = null;
     }
 
     isComporable(color) {

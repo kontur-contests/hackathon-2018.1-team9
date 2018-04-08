@@ -22,10 +22,10 @@ const ANIMATION_MAP = {
     BLACK: "ball_black"
 };
 
-
-export default class Ball {
-    constructor(color) {
+export default class Ball{
+    constructor(color, haveBonus) {
         this.color = color;
+        this.haveBonus = haveBonus;
 
         this.container = new PIXI.Container();
 
@@ -55,38 +55,67 @@ export default class Ball {
         this.container.addChild(animationSpawn);
         this.container.addChild(animationDestroy);
 
-        console.log("ball", ball);
-        console.log("animation", animation);
+        if (haveBonus) {
+            const bonus = this.bonus = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/star'));
+            bonus.pivot.x = Math.floor(bonus.width / 2);
+            bonus.pivot.y = Math.floor(bonus.height / 2) + 2;
+
+            bonus.scale.x = 0.5;
+            bonus.scale.y = 0.5;
+
+            this.container.addChild(bonus);
+        }
+
     }
 
     startSelectedAnimation() {
         this.animation.visible = true;
         this.ball.visible = false;
         this.animation.play();
+
+        if (this.bonus) {
+            this.bonus.visible = false;
+        }
     }
 
     stopSelectedAnimation() {
         this.animation.visible = false;
         this.ball.visible = true;
         this.animation.stop();
+
+        if (this.bonus) {
+            this.bonus.visible = true;
+        }
     }
 
     startSpawnAnimation() {
         this.animationSpawn.visible = true;
         this.ball.visible = false;
         this.animationSpawn.play();
+
+        if (this.bonus) {
+            this.bonus.visible = false;
+        }
     }
 
     stopSpawnAnimation() {
         this.animationSpawn.visible = false;
         this.ball.visible = true;
         this.animationSpawn.stop();
+
+        if (this.bonus) {
+            this.bonus.visible = true;
+        }
     }
 
     startDestroyAnimation() {
         this.animationDestroy.visible = true;
         this.ball.visible = false;
         this.animationDestroy.play();
+
+        if (this.bonus) {
+            this.bonus.visible = false;
+        }
     }
 
     stopDestroyAnimation() {

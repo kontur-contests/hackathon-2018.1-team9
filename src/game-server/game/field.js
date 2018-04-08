@@ -63,7 +63,6 @@ class Field {
             stack = newStack;
         }
         let path = [];
-        console.log(pathLength);
         if (pathLength[to.x][to.y] > 0) {
             let current = to;
             path.push(this.cells[current.x][current.y]);

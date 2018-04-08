@@ -55,32 +55,33 @@ export default class Field extends PIXI.utils.EventEmitter {
         }
 
         fieldModel.cells.forEach((row, x) => {
-            row.forEach((cell, y) => {
-                if (cell) {
-                    const ball = new Ball(cell.color);
-                    const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
+           row.forEach((cell, y) => {
+               if (cell) {
+                   const ball = new Ball(cell.color, cell.haveBonus);
+                   const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
-                    if (!this.balls[x]) {
-                        this.balls[x] = [];
-                    }
-                    this.balls[x][y] = ball;
+                   if (!this.balls[x]) {
+                       this.balls[x] = [];
+                   }
+                   this.balls[x][y] = ball;
 
-                    this.container.addChild(ball.getContainer());
+                   this.container.addChild(ball.getContainer());
 
-                    ball.getContainer().x = screenX;
-                    ball.getContainer().y = screenY;
-                }
-            })
+                   ball.getContainer().x = screenX;
+                   ball.getContainer().y = screenY;
+               }
+           })
         });
     }
 
-    createBall(x, y, color) {
-        console.log(x, y, color);
-        const ball = new Ball(color);
+    createBall(x, y, color, haveBonus) {
+        const ball = new Ball(color, haveBonus);
+
         ball.startSpawnAnimation();
         setTimeout(() => {
             ball.stopSpawnAnimation();
         }, 250);
+
         const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
         if (!this.balls[x]) {
