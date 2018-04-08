@@ -79,7 +79,6 @@ class Field {
                 } else if (pathLength[current.x][current.y] - 1 === pathLength[current.x][current.y - 1]) {
                     current = this.cells[current.x][current.y - 1];
                 }
-                console.log('step', current.toPlain());
                 path.unshift(current);
             }
         }
@@ -245,8 +244,6 @@ class Field {
         let normalNumber = number % (this.freeCells)+1;
         let x = 0;
         let y = 0;
-
-        console.log("Drop", normalNumber, this.freeCells);
 
         for (x = 0; x < this.width && normalNumber; x++) {
             for (y = 0; y < this.height && normalNumber; y++) {

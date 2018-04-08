@@ -45,7 +45,6 @@ wss.on('connection', (ws, req) => {
     players[playerUid].sockets.push(ws);
 
     ws.on('message', (message) => {
-        console.log('received: %s', message);
         let data = JSON.parse(message);
         if (data.action) {
             players[playerUid].calledAction = data;

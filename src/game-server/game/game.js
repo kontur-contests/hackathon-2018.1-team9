@@ -194,7 +194,6 @@ class Game {
                 break;
 
             case 'activate-bonus':
-                console.log(player.calledAction);
                 const bonusType = player.calledAction.bonus;
                 if (this.playersBonuses[playerIndex].includes(bonusType)) {
                     this.playersBonuses[playerIndex].splice(this.playersBonuses[playerIndex].indexOf(bonusType), 1);
@@ -265,7 +264,9 @@ class Game {
                         const frozenPositions = [];
 
                         for(let i = 0; i < 3; i++) {
-                            const number = Math.floor(Math.random() * this.fieldSize * this.fieldSize / 2);
+                            const number = Math.floor(
+                                Math.random() * (this.fieldSize * this.fieldSize - this.fields[data.target].freeCells)
+                            );
                             let x = 0;
                             let y = 0;
 
@@ -283,7 +284,7 @@ class Game {
                                 }
                             }
 
-                            if (x < this.fieldSize && y < this.fieldSize) {
+                            if (x < this.fieldSize && y < this.fieldSize && this.fields[data.target].cells[x][y].ball) {
                                 this.fields[data.target].cells[x][y].ball.snow = true;
                                 frozenPositions.push({x, y});
                             }
@@ -340,7 +341,6 @@ class Game {
                     case "check-line":
                         const field = data.field;
                         let {points, cells} = field.getLines();
-                        console.log('points', points);
                         let cellsPlain = [];
                         let unfreeze = [];
                         if (cells.length > 0) {

@@ -71,8 +71,6 @@ export default class GameScene {
         });
 
         game.on('select-cell', (cords) => {
-            console.log("Select cell", cords);
-            console.log(this.mainField.balls[cords.x][cords.y]);
             this.mainField.balls[cords.x][cords.y].startSelectedAnimation();
         });
 
@@ -91,7 +89,6 @@ export default class GameScene {
         });
 
         game.on('delete-my-ball', ({cells}) => {
-            console.log('scene game', cells);
             for (let i = 0; i < cells.length; i++) {
                 this.mainField.deleteBall(cells[i].x, cells[i].y);
             }
@@ -206,8 +203,6 @@ export default class GameScene {
 
 
     fullUpdate(gameData) {
-        console.log(gameData);
-
         let index = this.start.parent.getChildIndex(this.start);
         this.start.parent.removeChildAt(index);
 
@@ -257,7 +252,6 @@ export default class GameScene {
 
         const time = (new Date()).getTime();
         if (this.endGame) {
-            console.log("End game");
             return new ResultScene(this.resultGame);
         }
         this.animationTweens.forEach((tween) => {

@@ -4,7 +4,6 @@ import Bonus from '../block/bonus.js';
 
 export default class ResultScene {
     constructor(result) {
-        console.log(result);
         result = result.result;
 
         this.stage = new PIXI.Container();
@@ -55,7 +54,6 @@ export default class ResultScene {
         textResult.x =500;
         textResult.y = 250;
         this.stage.addChild(textResult);
-console.log(result);
         const mainPoints = this.mainPoints = new PIXI.Text(result.myPoints, style);
         this.mainPoints.x = 400;
         this.mainPoints.y = 250;

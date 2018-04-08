@@ -31,7 +31,6 @@ export default class GameModel extends PIXI.utils.EventEmitter {
         this.tickTime = new Date();
 
         data.changes.forEach(change => {
-            console.log("Tick", this.tickNumber, change);
             switch (change) {
                 case "badTurnTry":
                     this.myFieldInteractive = true;
@@ -74,10 +73,7 @@ export default class GameModel extends PIXI.utils.EventEmitter {
 
                 break;
             case "delete-ball":
-                console.log('delete-ball');
-                console.log('myField', change.onMyField);
                 if (change.onMyField) {
-                    console.log(change.cells);
                     for (let i = 0; i < change.cells.length; i++) {
                         field.cells[change.cells[i].x][change.cells[i].y] = null;
                     }
@@ -101,7 +97,6 @@ export default class GameModel extends PIXI.utils.EventEmitter {
                 break;
 
             case "end-games":
-                console.log('to model',change);
                 this.emit('end-games', change);
                 break;
 

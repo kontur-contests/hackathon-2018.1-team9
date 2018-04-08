@@ -16,7 +16,6 @@ export default class LoaderScene {
             .add('pole.png', '/pole.png');
 
         loader.onLoad.add((file) => {
-            console.log("file", file);
         });
 
         loader.onComplete.add(() => {
