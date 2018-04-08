@@ -207,7 +207,7 @@ class Field {
             let an = 2 + (countCells - 5 - 1);
             points = 5 + ((countCells - 2)) / 2 * (countCells - 5)
         }
-        return points * countColor - 1;
+        return points * (countColor - 1);
     }
 
     checkCurrentLine(findCells, x, y, useCells, useColors) {
