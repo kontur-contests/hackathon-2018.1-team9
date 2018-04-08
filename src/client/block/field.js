@@ -20,10 +20,10 @@ export default class Field extends PIXI.utils.EventEmitter {
         this.container.scale.y = scale;
 
         this.container.interactive = true;
-        this.container.on('pointerdown', (evt)=>{
+        this.container.on('pointerdown', (evt) => {
             const coordinate = this.container.toLocal(evt.data.global);
 
-            this.emit('click', Field.getCell(coordinate.x,coordinate.y));
+            this.emit('click', Field.getCell(coordinate.x, coordinate.y));
         });
 
         this.balls = [];
@@ -43,7 +43,7 @@ export default class Field extends PIXI.utils.EventEmitter {
             }
             this.balls[x1][y1] = ball;
 
-            const tween =  new createjs.Tween.get(ball.getContainer()).to(Field.getCellPixel(x1, y1), 250);
+            const tween = new createjs.Tween.get(ball.getContainer()).to(Field.getCellPixel(x1, y1), 250);
 
             return tween;
         }
@@ -75,8 +75,13 @@ export default class Field extends PIXI.utils.EventEmitter {
     }
 
     createBall(x, y, color, haveBonus) {
-        console.log(x, y, color);
         const ball = new Ball(color, haveBonus);
+
+        ball.startSpawnAnimation();
+        setTimeout(() => {
+            ball.stopSpawnAnimation();
+        }, 250);
+
         const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
         if (!this.balls[x]) {
@@ -90,8 +95,8 @@ export default class Field extends PIXI.utils.EventEmitter {
         ball.getContainer().y = screenY;
     }
 
-    deleteBall(x,y){
-        console.log('block field',x,y);
+    deleteBall(x, y) {
+        console.log('block field', x, y);
         if (this.balls[x][y]) {
             this.balls[x][y].remove();
             this.balls[x][y] = null;

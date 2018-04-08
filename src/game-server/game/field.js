@@ -125,7 +125,6 @@ class Field {
             let findCells = [];
             let y = 0;
             do {
-                console.log(x+y,y);
                 if (findCells.length > 0) {
                     this.checkCurrentLine(findCells, x + y, y, useCells, useColors);
                 }
@@ -187,7 +186,7 @@ class Field {
                     findCells = []
                 }
                 i++;
-            } while (x - i > 0);
+            } while (x - i >= 0);
             this.checkLines(findCells, useCells, useColors);
         }
 
