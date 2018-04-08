@@ -72,14 +72,6 @@ let blocks = {
         frameRate: 0.28,
         frames: ["sprites/balls/destroy/black4","sprites/balls/destroy/black3","sprites/balls/destroy/black2","sprites/balls/destroy/black1"]
     },
-    ball_black: {
-        pivot: {
-            x: 30,
-            y: 30
-        },
-        frameRate: 0.28,
-        frames: ["sprites/balls/black"]
-    },
     ball_blue: {
         pivot: {
             x: 30,
@@ -87,6 +79,14 @@ let blocks = {
         },
         frameRate: 0.28,
         frames: ["sprites/balls/blue1", "sprites/balls/blue2", "sprites/balls/blue3", "sprites/balls/blue4", "sprites/balls/blue5", "sprites/balls/blue6"]
+    },
+    ball_black: {
+        pivot: {
+            x: 30,
+            y: 30
+        },
+        frameRate: 0.28,
+        frames: ["sprites/balls/black1", "sprites/balls/black2", "sprites/balls/black3", "sprites/balls/black4", "sprites/balls/black5",]
     },
     ball_green: {
         pivot: {
@@ -118,7 +118,7 @@ let blocks = {
             y: 30
         },
         frameRate: 0.28,
-        frames: ["sprites/balls/rainbow"],
+        frames: ["sprites/balls/color1", "sprites/balls/color2", "sprites/balls/color3", "sprites/balls/color4", "sprites/balls/color5",],
     },
     ball_red: {
         pivot: {
