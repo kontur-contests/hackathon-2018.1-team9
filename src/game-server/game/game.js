@@ -64,6 +64,7 @@ class Game {
                         (cell) => cell.ball && {
                             color: cell.ball.color,
                             type: "ball",
+                            snow: cell.ball.snow,
                             haveBonus: Boolean(cell.ball.bonus)
                         }
                     )),
@@ -76,6 +77,7 @@ class Game {
                         (cell) => cell.ball && {
                             color: cell.ball.color,
                             type: "ball",
+                            snow: cell.ball.snow,
                             haveBonus: Boolean(cell.ball.bonus)
                         }
                     )),
@@ -213,6 +215,14 @@ class Game {
                     target: otherPlayerIndex
                 });
 
+                break;
+            case "FROZEN":
+                this.commonTickActions[this.tickNumber + 1] = this.commonTickActions[this.tickNumber + 1] || [];
+                this.commonTickActions[this.tickNumber + 1].push({
+                    action:'frozen',
+                    source: currentPlayerIndex,
+                    target: otherPlayerIndex
+                });
 
                 break;
         }
@@ -245,6 +255,47 @@ class Game {
                         this.playersTickChanges[data.source].push({
                             action: "remove-bonus",
                             bonus: "BLACK_BALL"
+                        });
+                        break;
+                    case 'frozen':
+                        const frozenPositions = [];
+
+                        for(let i = 0; i < 3; i++) {
+                            const number = Math.floor(Math.random() * this.fieldSize * this.fieldSize / 2);
+                            let x = 0;
+                            let y = 0;
+
+                            for (let j = 0; j < number && x < this.fieldSize && y < this.fieldSize;) {
+                                y++;
+                                if (y >= this.fieldSize) {
+                                    y = 0;
+                                    x++;
+                                }
+
+                                if (x < this.fieldSize && y < this.fieldSize
+                                    && this.fields[data.target].cells[x][y].ball
+                                ) {
+                                    j++;
+                                }
+                            }
+
+                            if (x < this.fieldSize && y < this.fieldSize) {
+                                this.fields[data.target].cells[x][y].ball.snow = true;
+                                frozenPositions.push({x, y});
+                            }
+                        }
+
+                        this.players.forEach((player, playerIndex) => {
+                            this.playersTickChanges[playerIndex].push({
+                                action: "snow",
+                                onMyField: data.target === playerIndex,
+                                balls: frozenPositions
+                            });
+                        });
+
+                        this.playersTickChanges[data.source].push({
+                            action: "remove-bonus",
+                            bonus: "FROZEN"
                         });
                         break;
                     case "move-ball":
@@ -302,10 +353,10 @@ class Game {
                                             bonus: cells[i].ball.bonus,
                                             cells: cells[i].toPlain()
                                         });
-                                        cells[i].ball = null;
-                                        field.freeCells += 1;
-                                        cellsPlain.push(cells[i].toPlain());
                                     }
+                                    cells[i].ball = null;
+                                    field.freeCells += 1;
+                                    cellsPlain.push(cells[i].toPlain());
                                 }
                             }
 
@@ -393,11 +444,11 @@ class Game {
 
             for (let i = 0; i < this.dropSize; i++) {
                 if (Math.random() <= 0.3) {
-                    //if (Math.random() > 0.5) {
-                    //    drop.push("FROZEN");
-                    //} else {
-                    drop.push("BLACK_BALL");
-                    //}
+                    if (Math.random() > 0.45) {
+                       drop.push("FROZEN");
+                    } else {
+                        drop.push("BLACK_BALL");
+                    }
                 } else {
                     drop.push(null);
                 }

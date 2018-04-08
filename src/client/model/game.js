@@ -130,6 +130,30 @@ export default class GameModel extends PIXI.utils.EventEmitter {
                 this.emit('remove-bonus', change.bonus);
 
                 break;
+
+            case "snow":
+                change.balls.forEach(({x, y}) => {
+                    field.cells[x][y].snow = true;
+                });
+                if (change.onMyField) {
+                    this.emit('snow', change.balls);
+                } else {
+                    this.emit('enemy-snow', change.balls);
+                }
+
+                break;
+            case "unfreeze-ball":
+                change.cells.forEach(({x, y}) => {
+                    field.cells[x][y].snow = false;
+                });
+                if (change.onMyField) {
+                    this.emit('un-snow', change.cells);
+                } else {
+                    this.emit('enemy-un-snow', change.cells);
+                }
+
+                break;
+
         }
     }
 
@@ -142,10 +166,8 @@ export default class GameModel extends PIXI.utils.EventEmitter {
     }
 
     clickMyField(x, y) {
-        console.log("Click field", x, y);
-        console.log(this.myFieldInteractive);
         if (this.myFieldInteractive) {
-            if (this.myFieldModel.cells[x][y]) {
+            if (this.myFieldModel.cells[x][y] && !this.myFieldModel.cells[x][y].snow) {
                 if (this.selectedCell) {
                     this.emit('deselect-cell', this.selectedCell);
                 }
