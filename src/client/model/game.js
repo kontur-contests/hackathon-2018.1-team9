@@ -114,12 +114,8 @@ export default class GameModel extends PIXI.utils.EventEmitter {
                 break;
 
             case "add-points":
-                if (change.onMyField) {
-                    console.log('add model');
-                    this.emit('add-my-points', change);
-                } else {
-                    this.emit('add-enemy-points', change);
-                }
+                    this.emit('add-my-points', change.pointMy);
+                    this.emit('add-enemy-points', change.pointOther);
                 break;
             case "get-bonus":
                 this.emit('get-bonus', change);

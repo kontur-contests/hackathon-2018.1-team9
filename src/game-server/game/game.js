@@ -380,7 +380,8 @@ class Game {
                                     action: "add-points",
                                     onMyField: data.field === this.fields[playerIndex],
                                     pointAdd: points,
-                                    pointTotal: this.points[playerIndex]
+                                    pointMy: this.points[playerIndex],
+                                    pointOther: this.points[(playerIndex+1)%2]
                                 });
                             });
                         } else {

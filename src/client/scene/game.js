@@ -140,10 +140,8 @@ export default class GameScene {
             this.mainField.createBall(x, y, color, bonus);
         });
 
-        game.on('add-my-points', (change) => {
-            console.log('change!!!',change.pointTotal);
-            this.mainPoints.text = change.pointTotal;
-            console.log(this.mainPoints.text);
+        game.on('add-my-points', (point) => {
+            this.mainPoints.text = point;
         });
 
 
@@ -177,8 +175,8 @@ export default class GameScene {
             this.secondField.createBall(x, y, color);
         });
 
-        game.on('add-enemy-points', (change) => {
-            this.secondPoints.text = change.pointTotal
+        game.on('add-enemy-points', (point) => {
+            this.secondPoints.text = point
         });
 
         game.on('snow', (balls) => {
