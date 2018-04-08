@@ -58,6 +58,9 @@ export default class Field extends PIXI.utils.EventEmitter {
            row.forEach((cell, y) => {
                if (cell) {
                    const ball = new Ball(cell.color, cell.haveBonus);
+                   if (cell.snow) {
+                       ball.addSnow();
+                   }
                    const {x: screenX, y: screenY} = Field.getCellPixel(x, y);
 
                    if (!this.balls[x]) {

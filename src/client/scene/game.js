@@ -185,6 +185,18 @@ export default class GameScene {
                 this.secondField.balls[x][y].addSnow();
             });
         });
+
+        game.on('un-snow', (balls) => {
+            balls.map(({x, y}) => {
+                this.mainField.balls[x][y].removeSnow();
+            });
+        });
+
+        game.on('enemy-un-snow', (balls) => {
+            balls.map(({x, y}) => {
+                this.secondField.balls[x][y].removeSnow();
+            });
+        });
     }
 
 

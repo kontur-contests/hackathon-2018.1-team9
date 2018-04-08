@@ -138,6 +138,18 @@ export default class GameModel  extends PIXI.utils.EventEmitter {
                 }
 
                 break;
+            case "unfreeze-ball":
+                change.cells.forEach(({x, y}) => {
+                    field.cells[x][y].snow = false;
+                });
+                if (change.onMyField) {
+                    this.emit('un-snow', change.cells);
+                } else {
+                    this.emit('enemy-un-snow', change.cells);
+                }
+
+                break;
+
         }
     }
 

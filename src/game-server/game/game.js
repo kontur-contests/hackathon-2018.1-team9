@@ -64,6 +64,7 @@ class Game {
                         (cell) => cell.ball && {
                             color: cell.ball.color,
                             type: "ball",
+                            snow: cell.ball.snow,
                             haveBonus: Boolean(cell.ball.bonus)
                         }
                     )),
@@ -76,6 +77,7 @@ class Game {
                         (cell) => cell.ball && {
                             color: cell.ball.color,
                             type: "ball",
+                            snow: cell.ball.snow,
                             haveBonus: Boolean(cell.ball.bonus)
                         }
                     )),

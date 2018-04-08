@@ -60,7 +60,12 @@ wss.on('connection', (ws, req) => {
                 width: playerGame.fields[playerIndex].width,
                 height: playerGame.fields[playerIndex].height,
                 field: playerGame.fields[playerIndex].cells.map((x) => x.map(
-                    (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
+                    (cell) => cell.ball && {
+                        color: cell.ball.color,
+                        type: "ball",
+                        haveBonus: Boolean(cell.ball.bonus),
+                        snow: cell.ball.snow
+                    }
                 )),
                 points: playerGame.points[0],
 
@@ -69,7 +74,12 @@ wss.on('connection', (ws, req) => {
                 width: playerGame.fields[otherPlayerIndex].width,
                 height: playerGame.fields[otherPlayerIndex].height,
                 field: playerGame.fields[otherPlayerIndex].cells.map((x) => x.map(
-                    (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
+                    (cell) => cell.ball && {
+                        color: cell.ball.color,
+                        type: "ball",
+                        haveBonus: Boolean(cell.ball.bonus),
+                        snow: cell.ball.snow
+                    }
                 )),
                 points: playerGame.points[1],
 
