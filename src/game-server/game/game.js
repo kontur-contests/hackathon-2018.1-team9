@@ -338,9 +338,7 @@ class Game {
             const drop = [];
 
             for (let i = 0; i < this.dropSize; i++) {
-                if (Math.random() <= 0.02) {
-                    drop.push(COLORS.BLACK);
-                } else if (Math.random() <= 0.07) {
+                if (Math.random() <= 0.03) {
                     drop.push(COLORS.RAINBOW);
                 } else {
                     drop.push(DROP_COLORS[Math.floor(Math.random() * DROP_COLORS.length)]);
@@ -359,7 +357,11 @@ class Game {
 
             for (let i = 0; i < this.dropSize; i++) {
                 if (Math.random() <= 0.3) {
-                    drop.push("BLACK_BALL");
+                    if (Math.random() > 0.5) {
+                        drop.push("FROZEN");
+                    } else {
+                        drop.push("BLACK_MAIL");
+                    }
                 } else {
                     drop.push(null);
                 }
