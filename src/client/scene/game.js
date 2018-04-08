@@ -126,8 +126,8 @@ export default class GameScene {
             this.bonuses = newBonusList;
 
             this.bonuses.forEach((bonus, idx) => {
-                bonus.getContainer().x = idx % 4 * 50;
-                bonus.getContainer().y = Math.floor(idx / 4) * 50;
+                bonus.getContainer().x = idx % 6 * 50;
+                bonus.getContainer().y = Math.floor(idx / 6) * 50;
             });
         });
 
