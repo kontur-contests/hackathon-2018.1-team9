@@ -23,6 +23,13 @@ export default class GameScene {
         this.stage.addChild(this.mainField.getContainer());
         this.stage.addChild(this.secondField.getContainer());
 
+        const start = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/start'));
+        start.pivot.x = Math.floor(start.width / 2);
+        start.x = Math.floor(app.view.width / 2);
+        start.y = Math.floor(app.view.height *0.4);
+        this.stage.addChild(start);
+        this.start = start;
+
         game.on('full-update', (data) => this.fullUpdate(data));
 
         this.mainField.on('click', (cords) => {
@@ -94,6 +101,9 @@ export default class GameScene {
 
     fullUpdate(gameData) {
         console.log(gameData);
+
+        let index = this.start.parent.getChildIndex(this.start);
+        this.start.parent.removeChildAt(index);
 
         const fieldModel = new FieldModel(gameData.myFieldData.width, gameData.myFieldData.height);
 
