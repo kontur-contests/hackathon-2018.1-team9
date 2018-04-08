@@ -360,7 +360,7 @@ class Game {
                     //if (Math.random() > 0.5) {
                     //    drop.push("FROZEN");
                     //} else {
-                        drop.push("BLACK_MAIL");
+                        drop.push("BLACK_BALL");
                     //}
                 } else {
                     drop.push(null);
