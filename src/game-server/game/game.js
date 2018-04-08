@@ -62,14 +62,16 @@ class Game {
                     height: this.fields[playerIndex].height,
                     field: this.fields[playerIndex].cells.map((x) => x.map(
                         (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
-                    ))
+                    )),
+                    points: this.points[0],
                 },
                 otherFieldData: {
                     width: this.fields[otherPlayerIndex].width,
                     height: this.fields[otherPlayerIndex].height,
                     field: this.fields[otherPlayerIndex].cells.map((x) => x.map(
                         (cell) => cell.ball && {color: cell.ball.color, type: "ball", haveBonus: Boolean(cell.ball.bonus)}
-                    ))
+                    )),
+                    points: this.points[1],
                 }
             };
 
