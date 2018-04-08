@@ -144,7 +144,7 @@ class Game {
         });
 
         this.changesHistory.push(this.playersTickChanges);
-        if (this.changesHistory.length > 15) {
+        if (this.changesHistory.length > 3) {
             this.changesHistory.shift();
         }
 
@@ -211,7 +211,7 @@ class Game {
                             field: field,
                         });
                     } else {
-                        this.playersTickChanges[0].push("badTurnTry");
+                        this.playersTickChanges[playerIndex].push("badTurnTry");
                     }
                 }
                 break;
