@@ -289,7 +289,7 @@ class Game {
                         let cellsPlain = [];
                         let unfreeze = [];
                         if (cells.length > 0) {
-                            this.points[0] += points;
+                            this.points[this.fields.indexOf(field)] += points;
                             for (let i = 0; i < cells.length; i++) {
                                 if (cells[i].ball && cells[i].ball.snow) {
                                     cells[i].ball.snow = false;
