@@ -11,6 +11,22 @@ export default class GameScene {
 
         this.mainField = new Field(30, 180, 1);
         this.secondField = new Field(800, 180, 0.66);
+        let style = new PIXI.TextStyle({
+            fontFamily: 'Arial',
+            fontSize: 36,
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+            fill: ['#ffffff', '#00ff99'], // gradient
+            stroke: '#4a1850',
+            strokeThickness: 5,
+            dropShadow: true,
+            dropShadowColor: '#000000',
+            dropShadowBlur: 4,
+            dropShadowAngle: Math.PI / 6,
+            dropShadowDistance: 6,
+            wordWrap: true,
+            wordWrapWidth: 440
+        });
 
         this.lastTickTime = null;
 
@@ -33,9 +49,18 @@ export default class GameScene {
         const start = new PIXI.Sprite(new PIXI.Texture.fromFrame('sprites/start'));
         start.pivot.x = Math.floor(start.width / 2);
         start.x = Math.floor(app.view.width / 2);
-        start.y = Math.floor(app.view.height *0.4);
+        start.y = Math.floor(app.view.height * 0.4);
         this.stage.addChild(start);
         this.start = start;
+        const mainPoints = this.mainPoints = new PIXI.Text('0',style);
+        this.mainPoints.x = 320;
+        this.mainPoints.y = 140;
+        this.stage.addChild(mainPoints);
+
+        const secondPoints = this.secondPoints = new PIXI.Text('0',style);
+        this.secondPoints.x = 980;
+        this.secondPoints.y = 150;
+        this.stage.addChild(secondPoints);
 
         game.on('full-update', (data) => this.fullUpdate(data));
 
@@ -54,7 +79,7 @@ export default class GameScene {
         });
 
         game.on('move-my-ball', ({from, to}) => {
-            const tween = this.mainField.moveBall(from ,to);
+            const tween = this.mainField.moveBall(from, to);
             if (tween) {
                 this.animationTweens.push(tween);
                 tween.call(() => {
@@ -64,7 +89,7 @@ export default class GameScene {
         });
 
         game.on('delete-my-ball', ({cells}) => {
-            console.log('scene game',cells);
+            console.log('scene game', cells);
             for (let i = 0; i < cells.length; i++) {
                 this.mainField.deleteBall(cells[i].x, cells[i].y);
             }
@@ -113,9 +138,15 @@ export default class GameScene {
             this.mainField.createBall(x, y, color, bonus);
         });
 
+        game.on('add-my-points', (change) => {
+            console.log('change!!!',change.pointTotal);
+            this.mainPoints.text = change.pointTotal;
+            console.log(this.mainPoints.text);
+        });
+
 
         game.on('move-enemy-ball', ({from, to}) => {
-            const tween = this.secondField.moveBall(from ,to);
+            const tween = this.secondField.moveBall(from, to);
 
             if (tween) {
                 this.animationTweens.push(tween);
@@ -137,6 +168,10 @@ export default class GameScene {
 
         game.on('spawn-enemy-ball', ({x, y, color}) => {
             this.secondField.createBall(x, y, color);
+        });
+
+        game.on('add-enemy-points', (change) => {
+            this.secondPoints.text = change.pointTotal
         });
     }
 

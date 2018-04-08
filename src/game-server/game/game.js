@@ -274,10 +274,11 @@ class Game {
                         break;
                     case "check-line":
                         const field = data.field;
-                        let {point, cells} = field.getLines();
+                        let {points, cells} = field.getLines();
+                        console.log('points',points);
                         let cellsPlain = [];
                         if (cells.length > 0) {
-                            this.points[0] += point;
+                            this.points[0] += points;
                             for (let i = 0; i < cells.length; i++) {
                                 cellsPlain.push(cells[i].toPlain());
                                 if (cells[i].ball.bonus) {
@@ -302,7 +303,7 @@ class Game {
                                 this.playersTickChanges[playerIndex].push({
                                     action: "add-points",
                                     onMyField: data.field === this.fields[playerIndex],
-                                    pointAdd: point,
+                                    pointAdd: points,
                                     pointTotal: this.points[playerIndex]
                                 });
                             });
