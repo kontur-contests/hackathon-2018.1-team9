@@ -96,7 +96,11 @@ class Game {
     }
 
     tick() {
-        if (this.lastTickTime === null) {
+        if (this.paused) {
+            this.onEnd && this.onEnd();
+            return;
+        }
+        if (this.lastTickTime === null ) {
             this.lastTickTime = (new Date()).getTime();
             setTimeout(() => this.tick(), TICK_DELAY);
 
@@ -383,6 +387,7 @@ class Game {
                             const drops = this.doDropToField(field);
 
                             if (drops.length === 0) {
+                                this.paused = true;
 
                                 this.players.forEach((player, playerIndex) => {
                                     this.playersTickChanges[playerIndex].push({

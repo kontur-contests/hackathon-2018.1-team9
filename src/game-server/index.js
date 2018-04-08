@@ -27,7 +27,18 @@ wss.on('connection', (ws, req) => {
             const currentPlayers = freePlayers.splice(0, 2);
             const game = new Game(3, 200, 9);
 
+            game.onEnd = () => {
+                setTimeout(() => {
+                    game.players.forEach((player) => {
+                        players[player.uid] = null;
+                    })
+                }, 2000);
+
+            };
+
             setTimeout(() => {game.start(currentPlayers[0], currentPlayers[1])}, 500);
+
+
         }
     }
 
@@ -43,7 +54,7 @@ wss.on('connection', (ws, req) => {
 
 
     ws.on('close', () => {
-        if (players[playerUid].sockets.includes(ws)) {
+        if (players[playerUid] && players[playerUid].sockets.includes(ws)) {
             players[playerUid].sockets.splice(players[playerUid].sockets.indexOf(ws), 1);
         }
     });
