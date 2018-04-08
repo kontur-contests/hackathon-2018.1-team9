@@ -156,7 +156,7 @@ export default class GameScene {
             }
         });
 
-        game.on('delete-enemy-ball', (cells) => {
+        game.on('delete-enemy-ball', ({cells}) => {
             for (let i = 0; i < cells.length; i++) {
                 this.secondField.deleteBall(cells[i].x, cells[i].y);
             }
