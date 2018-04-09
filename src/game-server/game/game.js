@@ -52,6 +52,8 @@ class Game {
         player2.game = this;
 
         this.doDropToField(this.fields[0]);
+        this.doDropToField(this.fields[0]);
+        this.doDropToField(this.fields[1]);
         this.doDropToField(this.fields[1]);
 
         this.players.forEach((player, playerIndex) => {
@@ -454,7 +456,7 @@ class Game {
             const drop = [];
 
             for (let i = 0; i < this.dropSize; i++) {
-                if (Math.random() <= 0.03) {
+                if (Math.random() <= 0.07) {
                     drop.push(COLORS.RAINBOW);
                 } else {
                     drop.push(DROP_COLORS[Math.floor(Math.random() * DROP_COLORS.length)]);
@@ -472,7 +474,7 @@ class Game {
             const drop = [];
 
             for (let i = 0; i < this.dropSize; i++) {
-                if (Math.random() <= 0.3) {
+                if (Math.random() <= 0.35) {
                     if (Math.random() >= 0.5) {
                        drop.push("FROZEN");
                     } else {

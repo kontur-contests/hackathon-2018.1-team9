@@ -183,16 +183,224 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">src/sprites/field/field-background.jpeg</key>
+            <key type="filename">src/sprites/background.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>135,135,270,270</rect>
+                <rect>300,213,600,425</rect>
                 <key>scale9Paddings</key>
-                <rect>135,135,270,270</rect>
+                <rect>300,213,600,425</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">src/sprites/balls/black.png</key>
+            <key type="filename">src/sprites/balls/blue.png</key>
+            <key type="filename">src/sprites/balls/green.png</key>
+            <key type="filename">src/sprites/balls/lightblue.png</key>
+            <key type="filename">src/sprites/balls/rainbow.png</key>
+            <key type="filename">src/sprites/balls/red.png</key>
+            <key type="filename">src/sprites/balls/rose.png</key>
+            <key type="filename">src/sprites/balls/yellow.png</key>
+            <key type="filename">src/sprites/star.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,14,25,27</rect>
+                <key>scale9Paddings</key>
+                <rect>13,14,25,27</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">src/sprites/balls/black1.png</key>
+            <key type="filename">src/sprites/balls/black2.png</key>
+            <key type="filename">src/sprites/balls/black3.png</key>
+            <key type="filename">src/sprites/balls/black4.png</key>
+            <key type="filename">src/sprites/balls/black5.png</key>
+            <key type="filename">src/sprites/balls/blue1.png</key>
+            <key type="filename">src/sprites/balls/blue2.png</key>
+            <key type="filename">src/sprites/balls/blue3.png</key>
+            <key type="filename">src/sprites/balls/blue4.png</key>
+            <key type="filename">src/sprites/balls/blue5.png</key>
+            <key type="filename">src/sprites/balls/blue6.png</key>
+            <key type="filename">src/sprites/balls/color1.png</key>
+            <key type="filename">src/sprites/balls/color2.png</key>
+            <key type="filename">src/sprites/balls/color3.png</key>
+            <key type="filename">src/sprites/balls/color4.png</key>
+            <key type="filename">src/sprites/balls/color5.png</key>
+            <key type="filename">src/sprites/balls/destroy/black1.png</key>
+            <key type="filename">src/sprites/balls/destroy/black2.png</key>
+            <key type="filename">src/sprites/balls/destroy/black3.png</key>
+            <key type="filename">src/sprites/balls/destroy/black4.png</key>
+            <key type="filename">src/sprites/balls/destroy/blue1.png</key>
+            <key type="filename">src/sprites/balls/destroy/blue2.png</key>
+            <key type="filename">src/sprites/balls/destroy/blue3.png</key>
+            <key type="filename">src/sprites/balls/destroy/blue4.png</key>
+            <key type="filename">src/sprites/balls/destroy/color1.png</key>
+            <key type="filename">src/sprites/balls/destroy/color2.png</key>
+            <key type="filename">src/sprites/balls/destroy/color3.png</key>
+            <key type="filename">src/sprites/balls/destroy/color4.png</key>
+            <key type="filename">src/sprites/balls/destroy/green1.png</key>
+            <key type="filename">src/sprites/balls/destroy/green2.png</key>
+            <key type="filename">src/sprites/balls/destroy/green3.png</key>
+            <key type="filename">src/sprites/balls/destroy/green4.png</key>
+            <key type="filename">src/sprites/balls/destroy/lightblue1.png</key>
+            <key type="filename">src/sprites/balls/destroy/lightblue2.png</key>
+            <key type="filename">src/sprites/balls/destroy/lightblue3.png</key>
+            <key type="filename">src/sprites/balls/destroy/lightblue4.png</key>
+            <key type="filename">src/sprites/balls/destroy/red1.png</key>
+            <key type="filename">src/sprites/balls/destroy/red2.png</key>
+            <key type="filename">src/sprites/balls/destroy/red3.png</key>
+            <key type="filename">src/sprites/balls/destroy/red4.png</key>
+            <key type="filename">src/sprites/balls/destroy/rose1.png</key>
+            <key type="filename">src/sprites/balls/destroy/rose2.png</key>
+            <key type="filename">src/sprites/balls/destroy/rose3.png</key>
+            <key type="filename">src/sprites/balls/destroy/rose4.png</key>
+            <key type="filename">src/sprites/balls/destroy/yellow1.png</key>
+            <key type="filename">src/sprites/balls/destroy/yellow2.png</key>
+            <key type="filename">src/sprites/balls/destroy/yellow3.png</key>
+            <key type="filename">src/sprites/balls/destroy/yellow4.png</key>
+            <key type="filename">src/sprites/balls/green1.png</key>
+            <key type="filename">src/sprites/balls/green2.png</key>
+            <key type="filename">src/sprites/balls/green3.png</key>
+            <key type="filename">src/sprites/balls/green4.png</key>
+            <key type="filename">src/sprites/balls/green5.png</key>
+            <key type="filename">src/sprites/balls/green6.png</key>
+            <key type="filename">src/sprites/balls/lightblue1.png</key>
+            <key type="filename">src/sprites/balls/lightblue2.png</key>
+            <key type="filename">src/sprites/balls/lightblue3.png</key>
+            <key type="filename">src/sprites/balls/lightblue4.png</key>
+            <key type="filename">src/sprites/balls/lightblue5.png</key>
+            <key type="filename">src/sprites/balls/lightblue6.png</key>
+            <key type="filename">src/sprites/balls/red1.png</key>
+            <key type="filename">src/sprites/balls/red2.png</key>
+            <key type="filename">src/sprites/balls/red3.png</key>
+            <key type="filename">src/sprites/balls/red4.png</key>
+            <key type="filename">src/sprites/balls/red5.png</key>
+            <key type="filename">src/sprites/balls/red6.png</key>
+            <key type="filename">src/sprites/balls/rose1.png</key>
+            <key type="filename">src/sprites/balls/rose2.png</key>
+            <key type="filename">src/sprites/balls/rose3.png</key>
+            <key type="filename">src/sprites/balls/rose4.png</key>
+            <key type="filename">src/sprites/balls/rose5.png</key>
+            <key type="filename">src/sprites/balls/rose6.png</key>
+            <key type="filename">src/sprites/balls/start-blue1.png</key>
+            <key type="filename">src/sprites/balls/start-blue5.png</key>
+            <key type="filename">src/sprites/balls/start-blue6.png</key>
+            <key type="filename">src/sprites/balls/start-blue7.png</key>
+            <key type="filename">src/sprites/balls/start-blue8.png</key>
+            <key type="filename">src/sprites/balls/start-blue9.png</key>
+            <key type="filename">src/sprites/balls/start-green1.png</key>
+            <key type="filename">src/sprites/balls/start-green5.png</key>
+            <key type="filename">src/sprites/balls/start-green6.png</key>
+            <key type="filename">src/sprites/balls/start-green7.png</key>
+            <key type="filename">src/sprites/balls/start-green8.png</key>
+            <key type="filename">src/sprites/balls/start-green9.png</key>
+            <key type="filename">src/sprites/balls/start-lightblue1.png</key>
+            <key type="filename">src/sprites/balls/start-lightblue5.png</key>
+            <key type="filename">src/sprites/balls/start-lightblue6.png</key>
+            <key type="filename">src/sprites/balls/start-lightblue7.png</key>
+            <key type="filename">src/sprites/balls/start-lightblue8.png</key>
+            <key type="filename">src/sprites/balls/start-lightblue9.png</key>
+            <key type="filename">src/sprites/balls/start-red1.png</key>
+            <key type="filename">src/sprites/balls/start-red5.png</key>
+            <key type="filename">src/sprites/balls/start-red6.png</key>
+            <key type="filename">src/sprites/balls/start-red7.png</key>
+            <key type="filename">src/sprites/balls/start-red8.png</key>
+            <key type="filename">src/sprites/balls/start-red9.png</key>
+            <key type="filename">src/sprites/balls/start-rose1.png</key>
+            <key type="filename">src/sprites/balls/start-rose5.png</key>
+            <key type="filename">src/sprites/balls/start-rose6.png</key>
+            <key type="filename">src/sprites/balls/start-rose7.png</key>
+            <key type="filename">src/sprites/balls/start-rose8.png</key>
+            <key type="filename">src/sprites/balls/start-rose9.png</key>
+            <key type="filename">src/sprites/balls/start-yellow1.png</key>
+            <key type="filename">src/sprites/balls/start-yellow5.png</key>
+            <key type="filename">src/sprites/balls/start-yellow6.png</key>
+            <key type="filename">src/sprites/balls/start-yellow7.png</key>
+            <key type="filename">src/sprites/balls/start-yellow8.png</key>
+            <key type="filename">src/sprites/balls/start-yellow9.png</key>
+            <key type="filename">src/sprites/balls/yellow1.png</key>
+            <key type="filename">src/sprites/balls/yellow2.png</key>
+            <key type="filename">src/sprites/balls/yellow3.png</key>
+            <key type="filename">src/sprites/balls/yellow4.png</key>
+            <key type="filename">src/sprites/balls/yellow5.png</key>
+            <key type="filename">src/sprites/balls/yellow6.png</key>
+            <key type="filename">src/sprites/field/fon_led.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,15,30,30</rect>
+                <key>scale9Paddings</key>
+                <rect>15,15,30,30</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">src/sprites/field/field-background.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>150,149,301,298</rect>
+                <key>scale9Paddings</key>
+                <rect>150,149,301,298</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">src/sprites/icons/boo.png</key>
+            <key type="filename">src/sprites/icons/bw.png</key>
+            <key type="filename">src/sprites/icons/kley.png</key>
+            <key type="filename">src/sprites/icons/mina.png</key>
+            <key type="filename">src/sprites/icons/snow.png</key>
+            <key type="filename">src/sprites/icons/str.png</key>
+            <key type="filename">src/sprites/icons/str1.png</key>
+            <key type="filename">src/sprites/icons/strrr.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">src/sprites/loose.png</key>
+            <key type="filename">src/sprites/win.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>125,125,250,250</rect>
+                <key>scale9Paddings</key>
+                <rect>125,125,250,250</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">src/sprites/start.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>175,40,350,80</rect>
+                <key>scale9Paddings</key>
+                <rect>175,40,350,80</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
